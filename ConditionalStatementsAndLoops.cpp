@@ -138,19 +138,45 @@ int main(){
     // }
     // cout << n << " is a prime number\n" ; 
     //! one more way : we can check till 2 to ✓n
-    int n ; 
-    cout << "Please enter the number: ";
-    cin >> n ;
-    for (int i = 2 ;  i * i < n ; i++){
-        if( n % i == 0){
-            cout << n << " is not a prime number\n" ; 
-            break ; 
-        }
+    // int n ; 
+    // cout << "Please enter the number: ";
+    // cin >> n ;
+    // for (int i = 2 ;  i * i < n ; i++){
+    //     if( n % i == 0){
+    //         cout << n << " is not a prime number\n" ; 
+    //         break ; 
+    //     }
+    // }
+    // cout << n << " is a prime number\n" ; 
+
+
+
+    
+
+    //! sum of all numbers from 1 to N which are divisible by 3 
+    // int n, sum = 0  ; 
+    // cout << "Please enter the numbar\n";
+    // cin >> n ; 
+    // for(int i = 0; i < n; i++){
+    //     if(i % 3 == 0) {
+    //     sum += i ; 
+    // }
+    // }
+    // cout << sum ; 
+
+
+    //! print a factorial of number N
+    int n, fact = 1 ; 
+    cout << "Please enter the number whose factorial you want:  "; 
+    cin >> n ; 
+    for(int i = 1 ; i <= n ; i ++){
+        fact *= i ;
     }
-    cout << n << " is a prime number\n" ; 
+    cout << fact ; 
 
 
 
-    return 0 ;
+     return 0 ;
 
 }
+
