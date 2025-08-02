@@ -183,3 +183,5 @@ for(int i = 0; i < n ; i++){
 
     return 0 ; 
 }
+
+//^ its remaining i know - i will surely complete 

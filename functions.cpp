@@ -62,10 +62,10 @@ int nCr (int n, int r){
 
 //! checking prime number 
 int checkPrime(int n) {
-    if(n == 2){
-        return 1 ; 
+    if(n == 2 ){
+        return  1; 
     }else{
-    for(int i = 1 ; i < n ; i++){
+    for(int i = 2 ; i < n ; i++){
         if(n % i == 0 ){
             return 0 ;
             break ; 
@@ -100,6 +100,38 @@ int primeNumber (int n) {
     // return 0 ; 
 }
 
+//! print n fibonacci 
+void nFibonacci (int n) {
+    if (n == 0) cout << 0  ;
+    if(n == 1) cout << 1 ; 
+    if (n < 2){
+        int sum = 1; 
+        for(int i = 1; i <= n; i++){
+            sum += 1 ;
+            cout << sum << " " ; 
+        }
+    };
+    // return 0 ;
+}
+
+void fibonacci(int n) {
+    if (n == 0) cout << 0;
+    if (n == 1) cout << 1;
+    if (n >= 2) {
+        int a = 0 , b = 1 , res ; 
+        cout << a << " ";
+        cout << b << " "; 
+        for(int i = 2 ; i < n ; i++){
+            res = a + b ; 
+            a = b ; 
+            b = res ; 
+            cout << b << " " ;
+        }
+    
+    }
+}
+
+
 
 int main () {
 //! function called 
@@ -133,7 +165,12 @@ int main () {
 //     cout << "It's not a prime number\n ";
 // }
 
-cout << primeNumber(10) << " " ;
+// cout << primeNumber(10) << " " ;
+
+// nFibonacci(5) ;
+
+fibonacci(5) ;
+
 
 
     return 0 ;
