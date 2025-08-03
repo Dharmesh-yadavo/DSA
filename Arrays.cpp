@@ -135,11 +135,15 @@ int main() {
         cout << a[i] << endl ; 
     }
 
+    //^ Homework 
 
-    
+    //! WAF to calculate sum and product of all numbers in array 
 
+    //! WAF to swap the max nd min number of array 
 
+    //! WAF to print all the unique values in array 
 
+    //! WAF to print intersection of 2 arrays 
 
 
 
