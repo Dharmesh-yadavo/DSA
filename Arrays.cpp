@@ -28,6 +28,24 @@ void reverseArr( int a[], int szA) {
     }
 }
 
+//! Suming an Array of num 
+int sumNum(int a[], int szA) {
+    int sum = 0 ; 
+    for(int i = 0; i < szA; i++){
+        sum += a[i]; 
+    }
+    return sum; 
+}
+
+//! Product of an array num 
+int prodNum(int a[], int szA){
+    int prod = 1 ; 
+    for(int i = 0; i < szA; i++){
+        prod *= a[i];
+    }
+    return prod; 
+}
+
 int main() {
 
     // int marks [20] ;
@@ -138,6 +156,10 @@ int main() {
     //^ Homework 
 
     //! WAF to calculate sum and product of all numbers in array 
+    int num[] = { 1, 2, 3, 4, 5 } ; 
+    int szNum = sizeof(num) / sizeof(num[0]);
+    cout << sumNum(num, szNum);
+    cout << prodNum(num, szNum);  
 
     //! WAF to swap the max nd min number of array 
 

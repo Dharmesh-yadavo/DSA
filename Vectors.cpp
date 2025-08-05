@@ -2,6 +2,27 @@
 #include <vector> 
 using namespace std ; 
 
+
+int LinearSearch (vector<int> &number, int target ) {
+    int s = number.size() ; 
+     for(int i = 0; i < s; i++){
+        if(number[i] == target) {
+            return i ; 
+        }
+     }
+     return -1 ; 
+}
+
+void ReverseVector(vector<int> &number) {
+    int start = 0 ; 
+    int end = number.size() - 1  ; 
+    while(end > start){
+        swap(number[start], number[end]);
+        start ++ ; 
+        end --;
+    }
+} 
+
 int main() {
     // vector<int> vec ; // by default size is 0 
     vector<int> vec = {1, 2, 3}; // size = 3 
@@ -84,6 +105,27 @@ int main() {
     //     return ans ; 
     // }
     // };
+ 
+    //^ Homework 
+    //! Linear Searching 
+    vector<int> number = {1, 2, 3, 4, 5} ; 
+    int target = 4 ; 
+    // cout << LinearSearch(number, target ) ; 
+
+    //! reverse vector 
+    cout << "ReverseVector" ;
+    ReverseVector(number) ;
+    int sz = number.size() ; 
+    for(int i = 0; i < sz; i++){
+        cout << number[i] << endl ; 
+    }
+
+    vector<int> rev = {1, 2, 3, 4, 5}; 
+    for(int i = rev.size() - 1 ; i >= 0 ; --i){
+        rev.push_back() 
+    }
+
+
 
 
     return 0;
