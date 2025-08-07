@@ -46,6 +46,55 @@ int prodNum(int a[], int szA){
     return prod; 
 }
 
+//! Unique number in an array 
+int uniqueNum(int a[], int szA) {
+    int res = 0 ; 
+    for(int i = 0 ; i < szA ; i++){
+        res ^= a[i] ; 
+    }
+    return res ; 
+}
+
+//! Intersection of an array num1 and num2 
+int interArr(int a[], int b[], int szA, int szB, int newArr[], int szNewArr) {
+    for(int i = 0 ; i < szA ; i++) {
+        a[i] = newArr[i] ;
+    }
+    for(int j = 0 ; j < szNewArr ; j++){
+        b[j] = newArr[szA + j]; 
+    }
+    // return newArr ; 
+}
+
+//! maxNum 
+int maxNum(int a[], int szA, int random ){
+    for(int i = 0; i < szA ; i++){
+        if(a[i] > random){
+            random = a[i] ; 
+        }
+    }
+    return random ; 
+}
+
+//! minNum
+int minNum(int a[], int szA, int random ){
+    for(int i = 0; i < szA ; i++){
+        if(a[i] < random){
+            random = a[i] ; 
+        }
+    }
+    return random ; 
+}
+
+//! Swap Max and Min number 
+int swapMaxMin(int max, int min) {
+    return swap(maxNum, minNum) ; 
+}
+
+
+
+
+
 int main() {
 
     // int marks [20] ;
@@ -54,18 +103,18 @@ int main() {
     
     // double price [] = {76.45, 34.56, 90.43} //! automatically created an array of size 3 
 
-    //! valid index is from 0 to (size - 1)
+//! valid index is from 0 to (size - 1)
     // cout << marks[0] << endl ; 
     // cout << marks[1] << endl ; 
     // cout << marks[2] << endl ; 
     // cout << marks[3] << endl ; 
     // cout << marks[4] << endl ; 
 
-    //! to change an index of array 
+//! to change an index of array 
     marks[0] = 89 ; 
     // cout << marks[0] << endl ; 
 
-    //! to print array through loop 
+//! to print array through loop 
     int sz = sizeof(marks) / sizeof(marks[0]);
     // cout << sz << endl ; 
 
@@ -73,7 +122,7 @@ int main() {
     //     cout << marks[i] << endl ; 
     // }
 
-    //! we can also take input of an array 
+//! we can also take input of an array 
     int arr[5] = {} ; 
     int szArr = sizeof(arr) / sizeof(arr[0]) ; 
 
@@ -85,7 +134,7 @@ int main() {
         // cout << arr[i] << endl ; 
     }
 
-    //! Smallest and largest in an array 
+//! Smallest and largest in an array 
     int a[5] = {23, 12, 65, 78, 21} ;
     int szA = sizeof(a) / sizeof(a[0]) ;
 
@@ -126,7 +175,7 @@ int main() {
     }
     // cout << smallest << endl ; 
 
-    //! Pass by reference 
+//! Pass by reference 
 
     // changeArr(a, szA) ; 
 
@@ -134,38 +183,56 @@ int main() {
         // cout << a[i] << endl ; 
     }
 
-    //! linear search 
+//! linear search 
     int target = 78 ; 
-    cout << linearSerch(a, szA, target) << endl ;
+    // cout << linearSerch(a, szA, target) << endl ;
 
 
-    //! reverse an array 
+//! reverse an array 
 
-    for(int i = 0; i < sz; i++){
-        cout << "Before Reverse " << endl ; 
-        cout << a[i] << endl ; 
-    }
+    // for(int i = 0; i < sz; i++){
+    //     cout << "Before Reverse " << endl ; 
+    //     cout << a[i] << endl ; 
+    // }
 
     reverseArr(a, szA)  ;
 
-    for(int i = 0; i < sz; i++){
-        cout << "After Reverse " << endl ;  
-        cout << a[i] << endl ; 
-    }
+    // for(int i = 0; i < sz; i++){
+    //     cout << "After Reverse " << endl ;  
+    //     cout << a[i] << endl ; 
+    // }
 
     //^ Homework 
 
-    //! WAF to calculate sum and product of all numbers in array 
+//! WAF to calculate sum and product of all numbers in array 
     int num[] = { 1, 2, 3, 4, 5 } ; 
     int szNum = sizeof(num) / sizeof(num[0]);
-    cout << sumNum(num, szNum);
-    cout << prodNum(num, szNum);  
+    // cout << sumNum(num, szNum) << endl ;
+    // cout << prodNum(num, szNum) << endl ;  
 
-    //! WAF to swap the max nd min number of array 
+//! WAF to swap the max nd min number of array 
+int random = num[0] ; 
+int max = maxNum(num, szNum, random) ; 
+cout << max << endl ; 
+int min = minNum(num, szNum, random) ; 
+cout << min << endl ; 
+cout << swapMaxMin(maxNum, minNum) ; 
 
-    //! WAF to print all the unique values in array 
 
-    //! WAF to print intersection of 2 arrays 
+//! WAF to print all the unique values in array
+    int unique[] = {1, 2, 2, 4, 4} ; 
+    int szUnique = sizeof(unique) / sizeof(unique[0]) ; 
+    // cout << uniqueNum(unique, szUnique) << endl ; 
+
+//! WAF to print intersection of 2 arrays 
+    int num1[] = {1, 2, 3, 4, 5} ; 
+    int num2[] = {6, 7, 8, 9};
+    int newArr[15] = { } ;
+    int szNewArr = sizeof(newArr) / sizeof(newArr[0]) ;
+    int szNum1 = sizeof(num1) / sizeof(num1[0]);
+    int szNum2 = sizeof(num2) / sizeof(num2[0]);
+    // cout << interArr(num1, num2, szNum1, szNum2, newArr, szNewArr) << endl ; 
+
 
 
 
