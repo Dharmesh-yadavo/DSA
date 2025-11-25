@@ -18,6 +18,7 @@ void explainPair() {
     cout << arr[2].first << " " << arr[2].second << endl;
 };
 
+<<<<<<< HEAD
 void explainVector() {
 
     vector<int> v;
@@ -143,4 +144,8 @@ int main() {
     // explainVector();
     // explainList();
     explainDeque();
+=======
+int main() {
+    explainPair() ;
+>>>>>>> f76bb5b7a82d41e358d0c1afabb97709ea348896
 }

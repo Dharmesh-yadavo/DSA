@@ -311,6 +311,7 @@ D D D D */
 // }
 
 //! 14
+<<<<<<< HEAD
 // for(int i = 0; i < 5; i++){
 //     for(char ch = 'A'; ch <= 'A' + i; ch++){
 //         cout << ch << " ";
@@ -355,6 +356,12 @@ for(int i = 0; i < n; i++){
     }
     cout << endl;
 }
+=======
+
+
+
+
+>>>>>>> f76bb5b7a82d41e358d0c1afabb97709ea348896
 
 //! 18 
 
