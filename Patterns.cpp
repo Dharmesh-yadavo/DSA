@@ -311,6 +311,52 @@ D D D D */
 // }
 
 //! 14
+// for(int i = 0; i < 5; i++){
+//     for(char ch = 'A'; ch <= 'A' + i; ch++){
+//         cout << ch << " ";
+//     }
+//     cout << endl;
+// }
+
+//! 15 
+// int n = 4; 
+// for(int i = 0; i <= n; i++){
+//     for(char ch = 'A'; ch <= 'A' + ( n - i ); ch++){
+//         cout << ch << " ";
+//     }
+//     cout << endl;
+// }
+
+//! 16
+// for(int i = 0; i < 5; i++){
+//     char ch = 'A' + i;
+//     for(int j = 0; j <= i; j++ ){
+//         cout << ch << " ";
+//     }
+//     cout << endl;
+// }
+
+//! 17 
+int n = 4;
+for(int i = 0; i < n; i++){
+    for(int j = 0; j < n - i - 1; j++){
+        cout << " " << " ";
+    }
+    char ch = 'A'; 
+    int breakpoint = (2*i+1) / 2; 
+    for(int j = 0; j < 2*i + 1; j++){
+        cout << ch << " "; 
+        if(j <= breakpoint) ch++ ; 
+        else ch--;
+    }
+
+    for(int j = 0; j < n - i; j++){
+        cout << " " << " ";
+    }
+    cout << endl;
+}
+
+//! 18 
 
 
 
@@ -319,4 +365,4 @@ D D D D */
     return 0 ; 
 }
 
-//^ its remaining i know - i will surely complete 
+//^ its remaining i know - i will surely complete  
