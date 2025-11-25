@@ -48,3 +48,7 @@ int main () {
 
     return 0; 
 }
+
+
+//* command to run the code 
+// g++ .\array.cpp -o .\array.exe        

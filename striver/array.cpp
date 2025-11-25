@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int sortArr(vector<int> &arr) {
+int largestElement(vector<int> &arr) {
     //* Brute force approach: 
     // sort(arr.begin(), arr.end());
     // return arr[arr.size() - 1]
@@ -14,7 +14,41 @@ int sortArr(vector<int> &arr) {
         }
     }
     return max; 
+}
 
+int secondLargestElement (vector<int> &arr) {
+//* Brute force approach: 
+// sort(arr.begin(), arr.end());
+// return arr[arr.size() - 2];
+
+//* Better approach: 
+    // int max = arr[0];
+    // int sLargest = -1 ; 
+    // for(int i = 0; i < arr.size() ; i++ ){
+    //     if(max < arr[i]){
+    //         max = arr[i];
+    //     }
+    // }
+    // for(int i = 0; i < arr.size(); i++){
+    //     if(arr[i] > sLargest && arr[i] != max){
+    //         sLargest = arr[i];
+    //     }
+    // }
+    // return sLargest; 
+
+    //* Optimal approach: 
+    int max = arr[0];
+    int sLargest = -1 ; 
+    for(int i = 0; i < arr.size() ; i++ ){
+        if(arr[i] > max) {
+            sLargest = max;
+            max = arr[i];
+        } 
+        else if (arr[i] > sLargest && arr[i] != max){
+            sLargest = arr[i];
+        }
+    }
+    return sLargest ; 
 }
 
 int main () {
@@ -25,7 +59,10 @@ int main () {
 
     //! Find the largest element in the Array: 
     // Brute force approach: 
-    cout << "The Largest element in the array is: " << sortArr(arr1) << endl;
+    // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
+
+    //! Second largest element in an Array:
+    cout << "The Second Largest element in the array is: " << secondLargestElement(arr2) << endl;
 
 
     return 0;
