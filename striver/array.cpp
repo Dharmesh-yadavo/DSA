@@ -106,6 +106,21 @@ int duplicateElementsInArray (vector<int> &arr) {
 
 }
 
+int rotateArrayByOne(vector <int> &arr) {
+    int temp = arr[0];
+    for(int i = 1; i < arr.size(); i++){
+        arr[i-1] = arr[i]; 
+    }
+    arr[arr.size() - 1] = temp;
+
+    for (int num : arr) {
+        cout << "Left Rotate the Array by One: " << num << " "; 
+    }
+
+    return 0;
+
+}
+
 
 int main () {
     // int arr = [1, 4, 3, 2, 9, 4] ; 
@@ -126,6 +141,9 @@ int main () {
 
     //! remove duplicates in place from sorted array:
     cout << "Remove duplicates from array and tell the count: " << duplicateElementsInArray(arr4) << endl;
+
+    //! Left Rotate the Array by One
+ rotateArrayByOne(arr2) ;
     
 
 
