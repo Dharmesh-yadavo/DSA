@@ -121,10 +121,59 @@ int rotateArrayByOne(vector <int> &arr) {
 
 }
 
+void rotateLeft(int arr[], int s, int k){
+
+    //* Brute force approach:
+
+    // if k is greater than like size is 7 and k is 10 then k = 7 + 3 means only 3 rotation
+    k = k % s ; 
+    int temp[k];
+
+    // storing first k elements in an array 
+    for(int i = 0; i < k; i++){
+        temp[i] = arr[i];
+    }
+
+    // shifting all other elements of arr
+    for(int i = k; i < s; i++){
+        arr[i - k] = arr[i];
+    }
+
+    // copy back the elements to last 
+    for (int i = 0; i < k; i++) {
+        arr[s - k + i] = temp[i];
+    }
+    
+}
+
+    void rotateRight(int arr[], int s, int k) {
+
+        // Normalize k if greater than n
+        k = k % s;
+
+        // Store last k elements in a temporary array
+        int temp[k];
+        for (int i = s - k; i < s; i++) {
+            temp[i - s + k] = arr[i];
+        }
+
+        // Shift the first n-k elements to the right by k steps
+        for (int i = s - k - 1; i >= 0; i--) {
+            arr[i + k] = arr[i];
+        }
+
+        // Copy back the k elements to the start
+        for (int i = 0; i < k; i++) {
+            arr[i] = temp[i];
+        }
+    }
+
 
 int main () {
-    // int arr = [1, 4, 3, 2, 9, 4] ; 
-    // int s = sizeof(arr)/ sizeof(arr[0]);
+    int arr[] = {1, 4, 3, 2, 9, 6 };
+    int s = sizeof(arr)/ sizeof(arr[0]);
+    int k = 2;
+
     vector<int> arr1 = {2, 5, 1, 3, 0};
     vector<int> arr2 = {8, 10, 5, 7, 9};
     vector<int> arr3 = {1, 2, 3, 4, 5, 6}; 
@@ -140,10 +189,22 @@ int main () {
     // cout << "Check if the array is Sorted: " << isArraySorted(arr3) << endl;
 
     //! remove duplicates in place from sorted array:
-    cout << "Remove duplicates from array and tell the count: " << duplicateElementsInArray(arr4) << endl;
+    // cout << "Remove duplicates from array and tell the count: " << duplicateElementsInArray(arr4) << endl;
 
     //! Left Rotate the Array by One
- rotateArrayByOne(arr2) ;
+    // rotateArrayByOne(arr2) ;
+
+    //! Rotate array by k elements 
+    rotateLeft(arr, s, k );
+    cout << "Array after left rottation " << k << " steps:\n";
+    for(int i = 0; i < s; i++){
+        cout << arr[i] << " ";
+    }
+    rotateRight(arr, s, k); 
+    cout << "Array after right rottation " << k << " steps:\n";
+    for(int i = 0; i < s; i++){
+        cout << arr[i] << " ";
+    }
     
 
 
