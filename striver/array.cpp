@@ -121,51 +121,67 @@ int rotateArrayByOne(vector <int> &arr) {
 
 }
 
+    void reverseArray(int nums[], int start, int end) {
+        while (start < end) {
+            swap(nums[start], nums[end]);
+            start++;
+            end--;
+        }
+    }
+
 void rotateLeft(int arr[], int s, int k){
 
     //* Brute force approach:
+    // // if k is greater than like size is 7 and k is 10 then k = 7 + 3 means only 3 rotation
+    // k = k % s ; 
+    // int temp[k];
 
-    // if k is greater than like size is 7 and k is 10 then k = 7 + 3 means only 3 rotation
-    k = k % s ; 
-    int temp[k];
+    // // storing first k elements in an array 
+    // for(int i = 0; i < k; i++){
+    //     temp[i] = arr[i];
+    // }
 
-    // storing first k elements in an array 
-    for(int i = 0; i < k; i++){
-        temp[i] = arr[i];
-    }
+    // // shifting all other elements of arr
+    // for(int i = k; i < s; i++){
+    //     arr[i - k] = arr[i];
+    // }
 
-    // shifting all other elements of arr
-    for(int i = k; i < s; i++){
-        arr[i - k] = arr[i];
-    }
+    // // copy back the elements to last 
+    // for (int i = 0; i < k; i++) {
+    //     arr[s - k + i] = temp[i];
+    // }
 
-    // copy back the elements to last 
-    for (int i = 0; i < k; i++) {
-        arr[s - k + i] = temp[i];
-    }
-    
+    //* Optimal approach 
+    reverseArray(arr, 0, k - 1);
+    reverseArray(arr, k, s - 1);
+    reverseArray(arr, 0, s - 1);
 }
 
     void rotateRight(int arr[], int s, int k) {
 
-        // Normalize k if greater than n
-        k = k % s;
+        // // Normalize k if greater than n
+        // k = k % s;
 
-        // Store last k elements in a temporary array
-        int temp[k];
-        for (int i = s - k; i < s; i++) {
-            temp[i - s + k] = arr[i];
-        }
+        // // Store last k elements in a temporary array
+        // int temp[k];
+        // for (int i = s - k; i < s; i++) {
+        //     temp[i - s + k] = arr[i];
+        // }
 
-        // Shift the first n-k elements to the right by k steps
-        for (int i = s - k - 1; i >= 0; i--) {
-            arr[i + k] = arr[i];
-        }
+        // // Shift the first n-k elements to the right by k steps
+        // for (int i = s - k - 1; i >= 0; i--) {
+        //     arr[i + k] = arr[i];
+        // }
 
-        // Copy back the k elements to the start
-        for (int i = 0; i < k; i++) {
-            arr[i] = temp[i];
-        }
+        // // Copy back the k elements to the start
+        // for (int i = 0; i < k; i++) {
+        //     arr[i] = temp[i];
+        // }
+
+        //* Optimal approach
+        reverseArray(arr, 0, s - 1);
+        reverseArray(arr, 0, k - 1);
+        reverseArray(arr, k, s - 1);
     }
 
 
