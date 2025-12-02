@@ -157,7 +157,7 @@ void rotateLeft(int arr[], int s, int k){
     reverseArray(arr, 0, s - 1);
 }
 
-    void rotateRight(int arr[], int s, int k) {
+void rotateRight(int arr[], int s, int k) {
 
         // // Normalize k if greater than n
         // k = k % s;
@@ -182,7 +182,57 @@ void rotateLeft(int arr[], int s, int k){
         reverseArray(arr, 0, s - 1);
         reverseArray(arr, 0, k - 1);
         reverseArray(arr, k, s - 1);
-    }
+}
+
+void moveZeroes(vector <int> &arr){
+    //* Brute force approach:   
+    // vector<int> temp(arr.size(), 0);
+
+    //     // Pointer to fill temp
+    //     int index = 0;
+
+    //     // Traverse input array
+    //     for (int i = 0; i < arr.size(); i++) {
+    //         // If non-zero, add to temp
+    //         if (arr[i] != 0) {
+    //             temp[index] = arr[i];
+    //             index++;
+    //         }
+    //     }
+
+    //     // Copy back temp to original
+    //     for (int i = 0; i < arr.size(); i++) {
+    //         arr[i] = temp[i];
+    //     }
+
+    //     // Return updated array
+    //     return arr;
+
+    //* Optimal approach: 
+     int j = -1;
+
+        // Find the first zero
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {
+                j = i;
+                break;
+            }
+        }
+
+        // If no zero found, return
+        if (j == -1) return;
+
+        // Start from the next index of first zero
+        for (int i = j + 1; i < nums.size(); i++) {
+            // If current element is non-zero
+            if (nums[i] != 0) {
+                // Swap with nums[j]
+                swap(nums[i], nums[j]);
+                // Move j to next zero
+                j++;
+            }
+        }
+}
 
 
 int main () {
@@ -191,9 +241,10 @@ int main () {
     int k = 2;
 
     vector<int> arr1 = {2, 5, 1, 3, 0};
-    vector<int> arr2 = {8, 10, 5, 7, 9};
+    vector<int> arr2 = {8, 10, 5,; 7, 9};
     vector<int> arr3 = {1, 2, 3, 4, 5, 6}; 
     vector<int> arr4 = {1, 1, 1, 2, 2, 3, 3, 3};
+    vector <int> arr5 = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -211,17 +262,19 @@ int main () {
     // rotateArrayByOne(arr2) ;
 
     //! Rotate array by k elements 
-    rotateLeft(arr, s, k );
-    cout << "Array after left rottation " << k << " steps:\n";
-    for(int i = 0; i < s; i++){
-        cout << arr[i] << " ";
-    }
-    rotateRight(arr, s, k); 
-    cout << "Array after right rottation " << k << " steps:\n";
-    for(int i = 0; i < s; i++){
-        cout << arr[i] << " ";
-    }
-    
+    // rotateLeft(arr, s, k );
+    // cout << "Array after left rottation " << k << " steps:\n";
+    // for(int i = 0; i < s; i++){
+    //     cout << arr[i] << " ";
+    // }
+    // rotateRight(arr, s, k); 
+    // cout << "Array after right rottation " << k << " steps:\n";
+    // for(int i = 0; i < s; i++){
+    //     cout << arr[i] << " ";
+    // }
+
+    //! Move all Zeros to the end of the array
+    moveZeroes(arr5) ; 
 
 
 
