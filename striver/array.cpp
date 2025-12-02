@@ -212,8 +212,8 @@ void moveZeroes(vector <int> &arr){
      int j = -1;
 
         // Find the first zero
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] == 0) {
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr[i] == 0) {
                 j = i;
                 break;
             }
@@ -223,15 +223,31 @@ void moveZeroes(vector <int> &arr){
         if (j == -1) return;
 
         // Start from the next index of first zero
-        for (int i = j + 1; i < nums.size(); i++) {
+        for (int i = j + 1; i < arr.size(); i++) {
             // If current element is non-zero
-            if (nums[i] != 0) {
-                // Swap with nums[j]
-                swap(nums[i], nums[j]);
+            if (arr[i] != 0) {
+                // Swap with arr[j]
+                swap(arr[i], arr[j]);
                 // Move j to next zero
                 j++;
             }
         }
+}
+
+int LinearSearch(vector <int> &arr, int num)
+{
+    int i;
+
+    // Loop through the array to find the number
+    for(i = 0; i < arr.size(); i++)
+    {
+        // If the current element matches the number, return its index
+        if(arr[i] == num)
+            return i;
+    }
+
+    // If the number is not found, return -1
+    return -1;
 }
 
 
@@ -241,7 +257,7 @@ int main () {
     int k = 2;
 
     vector<int> arr1 = {2, 5, 1, 3, 0};
-    vector<int> arr2 = {8, 10, 5,; 7, 9};
+    vector<int> arr2 = {8, 10, 5, 7, 9};
     vector<int> arr3 = {1, 2, 3, 4, 5, 6}; 
     vector<int> arr4 = {1, 1, 1, 2, 2, 3, 3, 3};
     vector <int> arr5 = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1};
@@ -274,7 +290,14 @@ int main () {
     // }
 
     //! Move all Zeros to the end of the array
-    moveZeroes(arr5) ; 
+    // moveZeroes(arr5) ; 
+    // for(int i = 0; i < arr5.size(); i++){
+    //     cout << arr[i] << " ";
+    // }
+
+    //! Linear Search 
+    int num = 5; 
+    cout << LinearSearch(arr1, num) << endl ; 
 
 
 
