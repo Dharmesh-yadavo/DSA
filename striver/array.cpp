@@ -319,6 +319,54 @@ void unionofArr(vector <int> &arr1, vector <int> &arr2 ){
     
 }
 
+void intersectionOfArr (vector <int> &arr1, vector <int> &arr2) {
+    //* Brute force approach: 
+    // vector <int> visited(arr2.size(), 0);
+    // vector <int> intersection;
+    // for(int i = 0 ; i < arr1.size(); i++){
+    //    for(int j = 0 ; j < arr2.size(); j++){
+    //     if(arr1[i] == arr2[j] && visited[j] == 0){
+    //         intersection.push_back(arr1[i]);
+    //         visited[j] = 1;
+    //         break;
+    //     }
+    //     if(arr1[i] < arr2[j]) break;
+    //    }  
+    // }
+    // cout << "Final Intersected Array " << endl  ; 
+    // for (int i = 0; i < intersection.size(); i++) {
+    //     cout << intersection[i] << " " ;
+    // }
+
+    //* Optimal approach: 
+    int i = 0, j = 0;
+    int n = arr1.size();
+    int m = arr2.size();
+
+    vector <int> ans;
+
+    while (i < n && j < m){
+        if(arr1[i] < arr2[j]){
+            i++;
+        }
+        else if(arr2[i] < arr1[j]) {
+            j++ ;
+        }
+        else {
+           ans.push_back(arr1[i]);
+            i++;
+            j++;
+        }
+    }
+
+    cout << "Final Intersected Array " << endl  ; 
+    for (int i = 0; i < ans.size(); i++) {
+        cout << ans[i] << " " ;
+    }
+
+
+}
+
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
@@ -371,9 +419,10 @@ int main () {
     // cout << LinearSearch(arr1, num) << endl ; 
 
     //! Union of Two Sorted Arrays 
-    unionofArr(arr6, arr7); 
+    // unionofArr(arr6, arr7); 
 
-
+    //! Intersection of Two Sorted Arrays 
+    intersectionOfArr(arr6, arr7);
 
     return 0;
 }
