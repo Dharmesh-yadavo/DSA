@@ -250,6 +250,75 @@ int LinearSearch(vector <int> &arr, int num)
     return -1;
 }
 
+void unionofArr(vector <int> &arr1, vector <int> &arr2 ){
+    //* Brute force approach with help of set :   
+    // set <int> set; 
+    // for(int i = 0; i < arr1.size(); i++){
+    //     set.insert(arr1[i]);
+    // }
+    // for(int j = 0; j < arr2.size(); j++){
+    //     set.insert(arr2[j]);
+    // }
+    // // for(auto it = set.begin(); it != set.end(); it++){
+    // //     cout << *it << " ";
+    // // }
+    //  // Convert set to vector
+    //     vector<int> unionArr(set.begin(), set.end());
+    //     for(int i = 0; i < unionArr.size(); i++){
+    //         cout << unionArr[i] << " "; 
+    //     }
+
+    //* Optimal approach : 
+
+    vector<int> Union;
+
+    int i = 0, j = 0;
+    int n = arr1.size();
+    int m = arr2.size();
+
+    while(i < n && j < m){
+        if(arr1[i] < arr2[j]){
+            if(Union.empty() || Union.back() != arr1[i]){
+                Union.push_back(arr1[i]);
+                i++;
+            }
+        }
+        else if (arr1[j] < arr2[i]){
+            if(Union.empty() || Union.back() != arr2[j]){
+                Union.push_back(arr2[j]);
+                i++;
+            }
+        }
+        else {
+            if(Union.empty() || Union.back() != arr1[i]){
+                Union.push_back(arr1[i]);
+                i++;
+                j++;
+            }
+        }
+
+    }
+
+    // Append remaining elements from arr1
+        while (i < n) {
+            if (Union.empty() || Union.back() != arr1[i])
+                Union.push_back(arr1[i]);
+            i++;
+        }
+
+    // Append remaining elements from arr2
+        while (j < m) {
+            if (Union.empty() || Union.back() != arr2[j])
+                Union.push_back(arr2[j]);
+            j++;
+        }
+
+    cout << "Final Union Array" ; 
+    for (int val : Union) cout << val << " ";
+
+    
+}
+
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
@@ -261,6 +330,8 @@ int main () {
     vector<int> arr3 = {1, 2, 3, 4, 5, 6}; 
     vector<int> arr4 = {1, 1, 1, 2, 2, 3, 3, 3};
     vector <int> arr5 = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1};
+    vector <int> arr6 = {1, 2, 3, 4, 5};
+    vector <int> arr7 = {2, 3, 4, 4, 5};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -297,7 +368,10 @@ int main () {
 
     //! Linear Search 
     int num = 5; 
-    cout << LinearSearch(arr1, num) << endl ; 
+    // cout << LinearSearch(arr1, num) << endl ; 
+
+    //! Union of Two Sorted Arrays 
+    unionofArr(arr6, arr7); 
 
 
 
