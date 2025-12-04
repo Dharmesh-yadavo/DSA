@@ -367,6 +367,24 @@ void intersectionOfArr (vector <int> &arr1, vector <int> &arr2) {
 
 }
 
+void maxmOnes(vector <int> &arr) {
+    int max = 0; 
+    int count = 1; 
+    for(int i = 0; i < arr.size(); i++) {
+        int j = i + 1; 
+        if(arr[i] == arr[j]){
+            count++;
+            cout << "j: " << j << " count: "<< count << endl;
+            j++;
+        };
+        if(max < count){
+            max = count;
+            count = 1; 
+        };
+    };
+    cout << "Maxm 1s are: " << max ;
+};
+
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
@@ -380,6 +398,7 @@ int main () {
     vector <int> arr5 = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1};
     vector <int> arr6 = {1, 2, 3, 4, 5};
     vector <int> arr7 = {2, 3, 4, 4, 5};
+    vector <int> arr8 = {1, 1, 0, 1, 1, 1}; 
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -415,14 +434,17 @@ int main () {
     // }
 
     //! Linear Search 
-    int num = 5; 
+    // int num = 5; 
     // cout << LinearSearch(arr1, num) << endl ; 
 
     //! Union of Two Sorted Arrays 
     // unionofArr(arr6, arr7); 
 
     //! Intersection of Two Sorted Arrays 
-    intersectionOfArr(arr6, arr7);
+    // intersectionOfArr(arr6, arr7);
+
+    //! Count Maximum Consecutive One's in the array
+    maxmOnes(arr8);
 
     return 0;
 }
