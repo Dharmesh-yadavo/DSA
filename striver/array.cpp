@@ -385,6 +385,61 @@ void maxmOnes(vector <int> &arr) {
     cout << "Maxm 1s are: " << max ;
 };
 
+void numaberOccursOnce(vector <int> &arr){
+    //* Brute Force Approach: 
+    int n = arr.size();
+    // for (int i = 0; i < n; i++) {
+    //     int num = arr[i]; // current element to check
+    //     int cnt = 0;
+
+    //     // Count occurrences of this element
+    //     for (int j = 0; j < n; j++) {
+    //         if (arr[j] == num)
+    //             cnt++;
+    //     }
+
+    //     // If it occurs only once, return it
+    //     if (cnt == 1) cout << num;
+    // }
+
+    //* Better Approach: 
+    
+    // // Step 1: Find the maximum value in the array
+    // int maxi = arr[0];
+    // for(int i = 0; i < n; i++){
+    //     maxi = max(maxi, arr[i]);
+    // }
+
+    // // Step 2: Declare and initialize hash array of size maxi+1
+    // vector <int> hash(maxi + 1, 0);
+
+    // // Step 3: Count the frequency of each number
+    // for(int i =0; i < n; i++){
+    //     hash[arr[i]]++;
+    // }
+
+    // // Step 4: Find the element that occurs exactly once
+    // for(int i =0; i < n; i++){
+    //     if(hash[arr[i]] == 1){
+    //         cout << arr[i];
+    //     }
+    // }
+    
+
+    //* Optimal approach: 
+    int xorr = 0;
+
+    // XOR all elements. Duplicates cancel out, leaving the single element.
+    for (int i = 0; i < n; i++) {
+        xorr = xorr ^ arr[i];
+    }
+
+    cout << xorr ; 
+    
+}
+
+
+
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
@@ -399,6 +454,7 @@ int main () {
     vector <int> arr6 = {1, 2, 3, 4, 5};
     vector <int> arr7 = {2, 3, 4, 4, 5};
     vector <int> arr8 = {1, 1, 0, 1, 1, 1}; 
+    vector <int> arr9 = {4,1,2,1,2};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -442,9 +498,12 @@ int main () {
 
     //! Intersection of Two Sorted Arrays 
     // intersectionOfArr(arr6, arr7);
-
+    
     //! Count Maximum Consecutive One's in the array
-    maxmOnes(arr8);
+    // maxmOnes(arr8);
+
+    //! Find the number that appears once, and the other numbers twice
+    numaberOccursOnce(arr9);
 
     return 0;
 }
