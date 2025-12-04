@@ -438,6 +438,56 @@ void numaberOccursOnce(vector <int> &arr){
     
 }
 
+void missingNumber (vector <int> arr, int N) {
+    //* Brute Force approach: 
+    //  // Loop through numbers from 1 to N
+    //     for (int i = 1; i <= N; i++) {
+    //         int flag = 0; // To check if i exists in array
+
+    //         // Linear search to check if i is in the array
+    //         for (int j = 0; j < N - 1; j++) {
+    //             if (arr[j] == i) {
+    //                 flag = 1; // i is found
+    //                 break;
+    //             }
+    //         }
+
+    //         // If i was not found, it is the missing number
+    //         if (flag == 0) cout << i;
+    //     }
+
+    //* Better Approach: 
+    // // Sum of first N natural numbers using formula: N*(N+1)/2
+    //     int sum = (N * (N + 1)) / 2;
+
+    //     // Sum of elements present in the array
+    //     int s2 = 0;
+    //     for (int i = 0; i < N - 1; i++) {
+    //         s2 += arr[i];
+    //     }
+
+    //     // The missing number is the difference between expected and actual sum
+    //     cout << sum - s2;
+
+    //* Optimal approach: 
+    int xor1 = 0, xor2 = 0, ans;
+
+        // XOR all the array elements and numbers from 1 to N-1
+        for (int i = 0; i < N - 1; i++) {
+            xor2 = xor2 ^ arr[i];      // XOR of array elements
+            xor1 = xor1 ^ (i + 1);   // XOR of numbers from 1 to N-1
+        }
+
+        xor1 = xor1 ^ N; // Include N in the XOR
+
+        // XOR of xor1 and xor2 gives the missing number
+        ans = xor1 ^ xor2;
+        cout << ans;
+
+}
+
+
+
 
 
 
@@ -455,6 +505,7 @@ int main () {
     vector <int> arr7 = {2, 3, 4, 4, 5};
     vector <int> arr8 = {1, 1, 0, 1, 1, 1}; 
     vector <int> arr9 = {4,1,2,1,2};
+    vector <int> arr10 = {1,2,4,5};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -498,12 +549,16 @@ int main () {
 
     //! Intersection of Two Sorted Arrays 
     // intersectionOfArr(arr6, arr7);
-    
+
     //! Count Maximum Consecutive One's in the array
     // maxmOnes(arr8);
 
     //! Find the number that appears once, and the other numbers twice
-    numaberOccursOnce(arr9);
+    // numaberOccursOnce(arr9);
+
+    //! Find the missing number in an array
+    int N = 5;
+    missingNumber(arr10, N);
 
     return 0;
 }
