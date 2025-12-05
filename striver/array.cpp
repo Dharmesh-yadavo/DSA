@@ -487,14 +487,48 @@ void missingNumber (vector <int> arr, int N) {
 }
 
 
+void sumOfSubArray (vector <int> &arr, int k) {
+    //* Brute force approach: 
 
+    int n = arr.size(); 
+    int maxLn = 0; 
+    // for(int startIndex = 0; startIndex < n; startIndex++){
+
+    //     for(int endIndex = 0; endIndex < n; endIndex++) {
+    //         int sum = 0;
+    //         for(int i = startIndex; i <= endIndex; i ++){
+    //             sum += arr[i];
+    //         }
+
+    //         if(sum == k){
+    //             maxLn = max(maxLn, endIndex - startIndex + 1 );
+    //         }
+
+    //     }
+    // }
+    // cout << "Longest Subarray with given Sum K: " << maxLn ;
+
+    //* Optimal approach: 
+    int i = 0; 
+    int j = i + 1; 
+    int sum = arr[i]; 
+    while(i < n && j < n){
+        sum += arr[j];
+        if(sum == k ){
+            maxLn = max(maxLn, j - i + 1 );            
+        }
+        j++;
+    }
+    i++;
+    cout << "Longest Subarray with given Sum K: " << maxLn ;
+}
 
 
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
     int s = sizeof(arr)/ sizeof(arr[0]);
-    int k = 2;
+    // int k = 2;
 
     vector<int> arr1 = {2, 5, 1, 3, 0};
     vector<int> arr2 = {8, 10, 5, 7, 9};
@@ -506,6 +540,7 @@ int main () {
     vector <int> arr8 = {1, 1, 0, 1, 1, 1}; 
     vector <int> arr9 = {4,1,2,1,2};
     vector <int> arr10 = {1,2,4,5};
+    vector <int> arr11 = {10, 5, 2, 7, 1, 9};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -557,8 +592,12 @@ int main () {
     // numaberOccursOnce(arr9);
 
     //! Find the missing number in an array
-    int N = 5;
-    missingNumber(arr10, N);
+    // int N = 5;
+    // missingNumber(arr10, N);
+
+    //! Longest Subarray with given Sum K(Positives)
+    int k = 15;
+    sumOfSubArray(arr11, k); 
 
     return 0;
 }
