@@ -509,17 +509,24 @@ void sumOfSubArray (vector <int> &arr, int k) {
     // cout << "Longest Subarray with given Sum K: " << maxLn ;
 
     //* Optimal approach: 
-    int i = 0; 
-    int j = i + 1; 
-    int sum = arr[i]; 
-    while(i < n && j < n){
-        sum += arr[j];
-        if(sum == k ){
-            maxLn = max(maxLn, j - i + 1 );            
+    int left = 0, right = 0; 
+    int sum = arr[0]; 
+    while(right < n){
+
+        // If the sum exceeds K, shrink the window
+        while(left <= right && sum > k) {
+            sum -= arr[left];
+            left++;
         }
-        j++;
+            
+        // store the maximum length
+        if(sum == k) {
+            maxLn = max(maxLn, right - left + 1);
+        }
+
+        right++;
+        if(right < n) sum += arr[right];
     }
-    i++;
     cout << "Longest Subarray with given Sum K: " << maxLn ;
 }
 
