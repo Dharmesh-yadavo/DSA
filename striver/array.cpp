@@ -530,6 +530,50 @@ void sumOfSubArray (vector <int> &arr, int k) {
     cout << "Longest Subarray with given Sum K: " << maxLn ;
 }
 
+bool twoSum(vector<int> &arr, int k) {
+    //* Brute force approach:
+
+    int n = arr.size();
+    
+    // for(int i = 0; i < n; i++) {
+    //     for(int j = i + 1; j < n; j++) {
+    //         if(arr[i] + arr[j] == k) {
+    //             return true;
+    //         }
+    //     }
+    // }
+    // return false;
+
+    //* Better approach: 
+
+    // unordered_map<int, int> mp;  // Map to store element -> index
+    // for(int i = 0; i < n; i++){
+    //     int complement = k - arr[i];
+    //     // If complement found, return indices
+    //     if(mp.find(complement) != mp.end()){
+    //         return true ; //  return {mp[complement], i};
+    //     }
+    //       // Store current element and index
+    //     mp[arr[i]] = i;
+    // }
+    // return false; //  return {-1, -1};  // No pair found
+
+    //* Optimal approach: 
+
+    int left = 0, right = n - 1; 
+    sort(arr.begin(), arr.end());
+    while(left < right){
+        int sum = arr[left] + arr[right];
+        if(sum == k){
+            return true;
+        }
+        else if(sum < k) left++;
+        else right--;
+    }
+    return false;
+}
+
+
 
 
 int main () {
@@ -603,8 +647,14 @@ int main () {
     // missingNumber(arr10, N);
 
     //! Longest Subarray with given Sum K(Positives)
-    int k = 15;
-    sumOfSubArray(arr11, k); 
+    // int k = 15;
+    // sumOfSubArray(arr11, k); 
+
+    //! two sum 
+    int k = 15; 
+    // twoSum(arr11, k); 
+    cout << twoSum(arr11, k) ;
+
 
     return 0;
 }
