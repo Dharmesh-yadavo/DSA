@@ -573,6 +573,68 @@ bool twoSum(vector<int> &arr, int k) {
     return false;
 }
 
+void sortZeroOneTwo(vector <int> arr) {
+    int n = arr.size(); 
+    //* Brute force aproach: 
+    // int count0 = 0, count1 = 0, count2 = 0;
+    // sort(arr.begin(), arr.end()); // we can do this by sorting also or by adding it particularly to array
+    // for(int i = 0; i < n; i++){
+    //     cout << arr[i] << " " ; 
+    //     if(arr[i] == 0) count0++;
+    //     else if(arr[i] == 1) count1++;
+    //     else count2++;
+    // }
+    // cout << endl << "zero: " << count0 << " " << "one: " << count1 << " "  << "two: " << count2 << endl ; 
+    //* 
+    // Time Complexity: O(n log n),because sort() dominates everything..
+    // Space Complexity: O(n) due to the copy + O(1) extra space
+
+    //* Better approach: 
+    // int count0 = 0, count1 = 0, count2 = 0;
+
+    //     // First pass: Count the number of 0s, 1s, and 2s
+    // for(int i = 0; i < n; i++){
+    //     if(arr[i] == 0) count0++;
+    //     else if(arr[i] == 1) count1++;
+    //     else count2++;
+    // }
+
+    //  // Second pass: Fill the array with 0s, then 1s, then 2s
+
+    //     // Fill the first 'cnt0' elements with 0
+    //     for (int i = 0; i < count0; i++) {
+    //         arr[i] = 0;
+    //     }
+
+    //     // Fill the next 'cnt1' elements with 1
+    //     for (int i = count0; i < count0 + count1; i++) {
+    //         arr[i] = 1;
+    //     }
+
+    //     // Fill the remaining elements with 2
+    //     for (int i = count0 + count1; i < arr.size(); i++) {
+    //         arr[i] = 2;
+    //     }
+
+    //     for(int i = 0; i < arr.size(); i++){
+    //         cout << arr[i] ; 
+    //     }
+
+    //* 
+    // Time Complexity:,O(n) We make two passes through the array: one for counting and one for updating. 
+    // So the total time is proportional to the size of the array.
+    // Space Complexity:O(1),Only three integer variables (cnt0, cnt1, cnt2) are used for counting.
+    //  No extra space is used proportional to the input size.
+
+    //* Optimal approach : 
+    
+
+
+
+
+
+}
+
 
 
 
@@ -592,6 +654,7 @@ int main () {
     vector <int> arr9 = {4,1,2,1,2};
     vector <int> arr10 = {1,2,4,5};
     vector <int> arr11 = {10, 5, 2, 7, 1, 9};
+    vector <int> arr12 = {1, 0, 2, 1, 0};
 
     //! Find the largest element in the Array: 
     // cout << "The Largest element in the array is: " << largestElement(arr2) << endl;
@@ -651,9 +714,12 @@ int main () {
     // sumOfSubArray(arr11, k); 
 
     //! two sum 
-    int k = 15; 
+    // int k = 15; 
     // twoSum(arr11, k); 
-    cout << twoSum(arr11, k) ;
+    // cout << twoSum(arr11, k) ;
+
+    //! Sort an array of 0s, 1s and 2s
+    sortZeroOneTwo(arr12);
 
 
     return 0;
