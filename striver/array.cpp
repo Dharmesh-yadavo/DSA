@@ -626,8 +626,28 @@ void sortZeroOneTwo(vector <int> arr) {
     // Space Complexity:O(1),Only three integer variables (cnt0, cnt1, cnt2) are used for counting.
     //  No extra space is used proportional to the input size.
 
-    //* Optimal approach : 
+    //* Optimal approach :  
+    //!  Dutch national flag approach 
+    int low = 0, mid = 0, high = n-1; 
+    while(mid <= high){
+        if(arr[mid] == 0) {
+            swap(arr[low], arr[mid]);
+            mid++; 
+            low++;
+        }
+        else if(arr[mid] == 1){
+            mid++;
+        }
+        else {
+            swap(arr[high], arr[mid]);
+            high--;
+        }
+    }
+    for(int i = 0; i < n; i++){
+        cout << arr[i] ; 
+    }
     
+
 
 
 
