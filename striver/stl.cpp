@@ -108,7 +108,7 @@ int main() {
     vector<int> res = findDivisors(10);
 
     // Function that takes a vector as argument
-    printVector(res);
+    printVector(res);   
 
 
     return 0;
