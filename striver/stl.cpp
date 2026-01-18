@@ -1,10 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-    //! Unordered_set: 
-    
-    unordered_set<int> s;
+void unorderedSet() {
+ unordered_set<int> s;
 
     // Insert
     for(int i = 1; i < 5; i++){
@@ -50,6 +48,68 @@ int main() {
     // Returns the maximum number of buckets the unordered_set can have.
     // Related to the hash table implementation.
     cout << s.max_bucket_count();
+}
+
+void vectorFun() {
+    vector <int> v;
+
+    for(int i = 0; i < 5; i++){
+        v.push_back(i);
+    }
+
+    for(auto it = v.begin(); it != v.end(); it++){
+        cout << *it << " " ;
+    }
+
+    cout << endl;
+
+    auto it = v.begin();
+    v.erase(it);
+
+
+    v.pop_back();
+
+    cout << "\nThe front element of the vector: " << v.front();  //The front element of the vector
+    cout << "\nThe last element of the vector: " << v.back(); //The last element of the vector
+    cout << "\nThe size of the vector: " << v.size();  //The size of the vector
+
+    v.clear();
+
+    for(auto it = v.begin(); it != v.end(); it++){
+        cout << *it << " " ;
+    }
+}
+
+vector<int> findDivisors(int n) {
+    vector<int> arr;
+
+    for (int i = 1; i <= n; i++) {
+        if (n % i == 0) {
+            arr.push_back(i);
+        }
+    }
+
+    return arr;
+}
+
+void printVector(vector<int> &v) {
+    for (int x : v) {
+        cout << x << " ";
+    }
+}
+
+
+int main() {
+    
+    // unorderedSet();
+    // vectorFun();
+
+    // function returning array 
+    vector<int> res = findDivisors(10);
+
+    // Function that takes a vector as argument
+    printVector(res);
+
 
     return 0;
 }
