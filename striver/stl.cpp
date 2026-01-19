@@ -98,18 +98,51 @@ void printVector(vector<int> &v) {
     }
 }
 
+void setFun() {
+    set<int> s;
+    for(int i = 1; i < 10; i++){
+        s.insert(i);
+    }
+   
+    for(auto it = s.begin(); it != s.end(); it++){
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    cout << s.count(2) << endl;
+
+    s.erase(s.begin());
+
+    for(auto it = s.begin(); it != s.end(); it++){
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    cout << s.size() << endl;
+
+    s.clear();
+
+    cout << s.empty() << endl;
+
+}
+
 
 int main() {
     
+    //! Unordered set 
     // unorderedSet();
+
+    //! Vector 
     // vectorFun();
 
     // function returning array 
-    vector<int> res = findDivisors(10);
+    // vector<int> res = findDivisors(10);
 
     // Function that takes a vector as argument
-    printVector(res);   
+    // printVector(res);   
 
+    //!set
+    setFun();
 
     return 0;
 }
