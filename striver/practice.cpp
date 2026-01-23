@@ -329,6 +329,126 @@ void highestLowestFreq() {
    
 }
 
+void leftRotateArray(vector <int> &arr, int s, int k) {
+    //! Brute force approach:
+    vector<int> res;
+
+    k = k % s; // if k is greater than like size is 7 and k is 10 then k = 7 + 3 means only 3 rotation
+
+    // for(int i = k; i < s; i++)
+    //     res.push_back(arr[i]);
+
+    // for(int i = 0; i < k; i++)
+    //     res.push_back(arr[i]);
+
+    // arr = res;  // ✅ modify original array 
+
+    //~ TC - O(N), SC - O(N)
+    
+    //! Optimal approach:
+    
+    reverse(arr.begin(), arr.begin() + k);
+    reverse(arr.begin() + k, arr.end());
+    reverse(arr.begin(), arr.end());
+
+    cout << "Left Rotate the Array by K: ";
+
+    for (int num : arr) {
+        cout << num << " "; 
+    }
+    
+    //~ TC - O(N), SC - O(1)
+
+}
+
+void moveZeroesToEnd(vector <int> &arr) {
+    //! Brute force approach:
+    vector <int> res;
+    int s = arr.size();
+
+    // int cnt = 0;
+
+    // for(int i = 0; i < s; i++){
+    //     if(arr[i] != 0){
+    //         res.push_back(arr[i]);
+    //     } else {
+    //         cnt ++;
+    //     }
+    // }
+    // while(cnt--){
+    //     res.push_back(0);
+    // }
+    // arr = res;
+    // cout << "Array after moving zeroes to the end: ";
+    // for (int num : arr) {
+    //     cout << num << " ";
+    // };
+    //~ TC - O(N), SC - O(N)
+
+    //! Not Optimal approach:
+
+    // for(int j = 0; j < s; j++){
+    //     if(arr[j] == 0){
+    //         for(int i = j + 1; i < s; i++){ 
+    //             if(arr[i] != 0){
+    //                 swap(arr[j], arr[i]);
+    //                 break;
+    //             }
+    //         }
+    //     } 
+    // }
+    // cout << "Array after moving zeroes to the end: ";
+    // for (int num : arr) {
+    //     cout << num << " ";
+    // };  
+    //~ TC - O(N^2), SC - O(1)
+
+    //! Optimal approach:
+
+     int j = -1;
+
+        // Find the first zero
+        for (int i = 0; i < s; i++) {
+            if (arr[i] == 0) {
+                j = i;
+                break;
+            }
+        }
+
+        // If no zero found, return
+        if (j == -1) return;
+
+        // Start from the next index of first zero
+        for (int i = j + 1; i < s; i++) {
+            // If current element is non-zero
+            if (arr[i] != 0) {
+                // Swap with arr[j]
+                swap(arr[i], arr[j]);
+                // Move j to next zero
+                j++;
+            }
+        }
+
+    cout << "Array after moving zeroes to the end: ";
+    for (int num : arr) {
+        cout << num << " ";         
+    };
+    //~ TC - O(N), SC - O(1)
+}   
+
+void linearSearch(vector <int> &arr, int s, int key) {
+    //* Brute force approach:
+    for(int i = 0; i < s; i++){
+        if(arr[i] == key){
+            cout << "Element found at index: " << i ;
+            return;
+        }
+    }
+    cout << "Element not found" ;
+
+    //~ TC - O(N), SC - O(1)
+
+}   
 
 
 
@@ -341,6 +461,11 @@ int main () {
     int n1 = 9;
     int n2 = 16;
     int n3 = 3;
+    vector <int> newArr = {5, 4, 3, 2, 1};
+    vector <int> newArrWithZero = {5, 0, 4, 0, 0, 3, 2, 0, 0, 1};
+    int size = newArr.size();
+
+
     // cout << countDigits(n);
     // cout << reverseNumber(n);
     // checkPalindrome(r);
@@ -359,8 +484,7 @@ int main () {
 
     // factorialOfNumber(1, 5, 1);
 
-    // int arr[] = {5, 4, 3, 2, 1};
-    // int size = sizeof(arr) / sizeof(arr[0]);
+    
     // reverseArray(0, arr, size);
     //  for(int x: arr){
     //     cout << x << " ";
@@ -383,8 +507,14 @@ int main () {
     // string containing both uppercase and lowercase then 
     // stringHashing();
 
-    highestLowestFreq();
+    // highestLowestFreq();
 
+    // leftRotateArray(newArr, size, 2);
+    // cout << "\n";
+
+    // moveZeroesToEnd(newArrWithZero);
+
+    linearSearch(newArr, size, 3);
 
     
 
