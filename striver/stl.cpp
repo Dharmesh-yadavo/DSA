@@ -126,8 +126,98 @@ void setFun() {
 
 }
 
+void mapFun(){
+    map < int, int > mp;
+  for (int i = 1; i <= 5; i++) {
+    mp.insert({i , i * 10});
+  }
+
+  cout << "Elements present in the map: " << endl;
+  cout << "Key\tElement" << endl;
+  for (auto it = mp.begin(); it != mp.end(); it++) {
+    cout << it -> first << "\t" << it -> second << endl;
+  }
+
+  int n = 2;
+  if (mp.find(2) != mp.end())
+    cout << n << " is present in map" << endl;
+
+  mp.erase(mp.begin());
+  cout << "Elements after deleting the first element: " << endl;
+  cout << "Key\tElement" << endl;
+  for (auto it = mp.begin(); it != mp.end(); it++) {
+    cout << it -> first << "\t" << it -> second << endl;
+  }
+
+  cout << "The size of the map is: " << mp.size() << endl;
+
+  if (mp.empty() == false)
+    cout << "The map is not empty " << endl;
+  else
+    cout << "The map is empty" << endl;
+  mp.clear();
+  cout << "Size of the map after clearing all the elements: " << mp.size();
+}
+
 
 int main() {
+
+    //! short notes 
+//     STL Containers – One-Page Memory Note
+// 🔹 vector
+
+// 👉 Indexed, fast traversal
+// 👉 Use when order matters & duplicates allowed
+// ⏱ O(1) access
+
+// 🔹 unordered_set
+
+// 👉 Unique elements, fastest lookup
+// 👉 Order doesn’t matter
+// ⏱ O(1) avg
+
+// 🔹 set
+
+// 👉 Unique + sorted
+// 👉 Use when you need min/max or sorted order
+// ⏱ O(log N)
+
+// 🔹 unordered_multiset
+
+// 👉 Duplicates allowed, no order
+// 👉 Fast frequency-style storage
+// ⏱ O(1) avg
+
+// 🔹 multiset
+
+// 👉 Duplicates + sorted
+// 👉 Use for median, ordered duplicates
+// ⏱ O(log N)
+
+// 🔹 unordered_map
+
+// 👉 Key → value, fastest
+// 👉 Frequency counting, hashing problems
+// ⏱ O(1) avg
+
+// 🔹 map
+
+// 👉 Key → value + sorted keys
+// 👉 Range queries, ordered traversal
+// ⏱ O(log N)
+
+// 🔹 unordered_multimap
+
+// 👉 One key → many values, no order
+// 👉 Grouping, adjacency lists
+// ⏱ O(1) avg
+
+// 🧠 Golden Rule (REMEMBER THIS)
+
+// Need order? → map / set
+// Need speed? → unordered_*
+// Need duplicates? → multi*
+// Need indexing? → vector
     
     //! Unordered set 
     // unorderedSet();
@@ -142,7 +232,10 @@ int main() {
     // printVector(res);   
 
     //!set
-    setFun();
+    // setFun();
+
+    //! map 
+    mapFun();
 
     return 0;
 }
