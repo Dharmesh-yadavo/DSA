@@ -450,6 +450,122 @@ void linearSearch(vector <int> &arr, int s, int key) {
 
 }   
 
+void unionOfTwoArrays(int arr1[], int arr2[]) {
+    //! Brute force approach with help of set / map :
+    int n = sizeof(arr1) / sizeof(arr1[0]);
+    int m = sizeof(arr2) / sizeof(arr2[0]);    
+    // map <int, int> mp;  
+
+    // for(int i = 0; i < n; i++){
+    //     mp[arr1[i]] = 1;
+    // }
+    // for(int j = 0; j < ;m j++){
+    //     mp[arr2[j]] = 1;
+    // }
+    // cout << "Union of two arrays is: ";
+    // for(auto it = mp.begin(); it != mp.end(); it++){
+    //     cout << it->first << " ";
+        
+    // }       
+    //~ TC - O((N + M) log(N + M)), SC - O(N + M)
+
+    //! Optimal approach : 
+    vector<int> Union;
+    int i = 0, j = 0;
+    while(i <n && j < m){
+        if(arr1[i] < arr2[j]){
+            if(Union.empty() || Union.back() != arr1[i])
+                Union.push_back(arr1[i]);
+            i++;
+        }
+        else if(arr2[j] < arr1[i]){
+            if(Union.empty() || Union.back() != arr2[j])
+                Union.push_back(arr2[j]);
+            j++;
+        }
+        else {
+            if(Union.empty() || Union.back() != arr1[i])
+                Union.push_back(arr1[i]);
+            i++;
+            j++;
+        }
+        
+    } 
+
+    // Append remaining elements from arr1
+        while (i < n) {
+            if (Union.empty() || Union.back() != arr1[i])
+                Union.push_back(arr1[i]);
+            i++;
+        }
+
+    // Append remaining elements from arr2
+        while (j < m) {
+            if (Union.empty() || Union.back() != arr2[j])
+                Union.push_back(arr2[j]);
+            j++;
+        }
+
+    cout << "Final Union Array" ; 
+    for (int val : Union) cout << val << " ";           
+    //~ TC - O(N + M), SC - O(N + M)    
+    
+}
+
+void missingNumberInArray(int arr[], int n) {
+    //! Brute force approach:
+    // int flag = 0;
+    // for(int i = 1; i <= n; i++){
+    //     for(int j = 0; j < n - 1; j++){
+    //         if(arr[j] == i){
+    //             flag = 1;
+    //             break;
+    //         }
+    //     }
+    //     if(flag == 0){
+    //         cout << "Missing number in the array is: " << i ;
+    //         break;
+    //     }
+    // }
+    //~ TC - O(N^2), SC - O(1)
+    
+    //! Better approach:
+    // int expectedSum = n * (n + 1) / 2; 
+    // int actualSum = 0; 
+    // for(int i = 0; i < n - 1; i++){
+    //     actualSum += arr[i];
+    // }
+    // int missingNumber = expectedSum - actualSum;
+    // cout << "Missing number in the array is: " << missingNumber ;
+    //~ TC - O(N), SC - O(1)
+
+    //! Optimal approach:
+    int xor1 =0, xor2 = 0;
+    for(int i =0; i < n; i++){
+        xor2 = xor ^ arr[i];
+        xor1 = xor1 ^ (i + 1);
+    }
+    xor1 = xor1 ^ n;
+    cout << "Missing number in the array is: " << (xor1 ^ xor2) ;
+    //~ TC - O(N), SC - O(1)
+  
+}
+
+void maxmOnes(int arr[], int n){
+    int count = 0, maxm = 0;
+    for(int i = 0; i< n; i++ ){
+        if(arr[i] ==1){
+            count ++;
+            maxm = max(maxm, count);
+        } else {
+            count = 0;
+        }
+
+    }
+    cout << "Maximum consecutive ones are: " << maxm ;
+}
+
+
 
 
 
@@ -460,7 +576,7 @@ int main () {
     int r = 4554; 
     int n1 = 9;
     int n2 = 16;
-    int n3 = 3;
+    // int n3 = 3;
     vector <int> newArr = {5, 4, 3, 2, 1};
     vector <int> newArrWithZero = {5, 0, 4, 0, 0, 3, 2, 0, 0, 1};
     int size = newArr.size();
@@ -514,7 +630,18 @@ int main () {
 
     // moveZeroesToEnd(newArrWithZero);
 
-    linearSearch(newArr, size, 3);
+    // linearSearch(newArr, size, 3);
+
+    int arr1[] = {1, 2, 4, 5};
+    int arr2[] = {2, 3, 5, 7, 9};
+    int arr3[] = {1, 1, 2, 1, 1, 1};
+    int size3 = sizeof(arr3) / sizeof(arr3[0]);
+
+    // unionOfTwoArrays(arr1, arr2);
+
+    // missingNumberInArray(arr1, 5);
+
+    // maxmOnes(arr3, size3);
 
     
 
