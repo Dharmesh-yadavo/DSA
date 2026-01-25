@@ -159,6 +159,48 @@ void mapFun(){
   cout << "Size of the map after clearing all the elements: " << mp.size();
 }
 
+void printValuesOfQueue(queue<int> q) {
+    cout << "Elements present in the queue: ";
+    while (!q.empty()) {
+        cout << q.front() << " ";
+        q.pop();
+    }
+    cout << endl;
+}
+
+void queueFun() { 
+    queue<int> q;
+
+    for(int i = 1; i <= 5; i++){
+        q.push(i);
+    }
+
+    printValuesOfQueue(q);
+    cout << "Front element of the queue: " << q.front() << endl;
+    cout << "Back element of the queue: " << q.back() << endl;
+    cout << "Size of the queue: " << q.size() << endl;
+
+    q.pop(); // removes the front element
+    cout << "Front element after pop operation: " << q.front() << endl;
+    cout << "Size of the queue after pop operation: " << q.size() << endl;
+
+    if(q.empty() == false)
+        cout << "The queue is not empty" << endl;
+    else
+        cout << "The queue is empty" << endl;
+
+    queue<int> q1;
+
+    for(int i = 10; i <= 5; i++){
+        q1.emplace(i); 
+        // emplace() constructs the element in-place and avoids unnecessary copying,
+        //  so it’s generally more efficient than push()
+    }
+
+    printValuesOfQueue(q1);
+
+}
+
 
 int main() {
 
@@ -235,7 +277,10 @@ int main() {
     // setFun();
 
     //! map 
-    mapFun();
+    // mapFun();
+
+    //! queue - FIFO
+    queueFun();
 
     return 0;
 }
