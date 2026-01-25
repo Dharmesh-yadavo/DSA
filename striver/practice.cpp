@@ -452,8 +452,8 @@ void linearSearch(vector <int> &arr, int s, int key) {
 
 void unionOfTwoArrays(int arr1[], int arr2[]) {
     //! Brute force approach with help of set / map :
-    int n = sizeof(arr1) / sizeof(arr1[0]);
-    int m = sizeof(arr2) / sizeof(arr2[0]);    
+    // int n = sizeof(arr1) / sizeof(arr1[0]);
+    // int m = sizeof(arr2) / sizeof(arr2[0]);    
     // map <int, int> mp;  
 
     // for(int i = 0; i < n; i++){
@@ -470,44 +470,44 @@ void unionOfTwoArrays(int arr1[], int arr2[]) {
     //~ TC - O((N + M) log(N + M)), SC - O(N + M)
 
     //! Optimal approach : 
-    vector<int> Union;
-    int i = 0, j = 0;
-    while(i <n && j < m){
-        if(arr1[i] < arr2[j]){
-            if(Union.empty() || Union.back() != arr1[i])
-                Union.push_back(arr1[i]);
-            i++;
-        }
-        else if(arr2[j] < arr1[i]){
-            if(Union.empty() || Union.back() != arr2[j])
-                Union.push_back(arr2[j]);
-            j++;
-        }
-        else {
-            if(Union.empty() || Union.back() != arr1[i])
-                Union.push_back(arr1[i]);
-            i++;
-            j++;
-        }
+    // vector<int> Union;
+    // int i = 0, j = 0;
+    // while(i <n && j < m){
+    //     if(arr1[i] < arr2[j]){
+    //         if(Union.empty() || Union.back() != arr1[i])
+    //             Union.push_back(arr1[i]);
+    //         i++;
+    //     }
+    //     else if(arr2[j] < arr1[i]){
+    //         if(Union.empty() || Union.back() != arr2[j])
+    //             Union.push_back(arr2[j]);
+    //         j++;
+    //     }
+    //     else {
+    //         if(Union.empty() || Union.back() != arr1[i])
+    //             Union.push_back(arr1[i]);
+    //         i++;
+    //         j++;
+    //     }
         
-    } 
+    // } 
 
     // Append remaining elements from arr1
-        while (i < n) {
-            if (Union.empty() || Union.back() != arr1[i])
-                Union.push_back(arr1[i]);
-            i++;
-        }
+        // while (i < n) {
+        //     if (Union.empty() || Union.back() != arr1[i])
+        //         Union.push_back(arr1[i]);
+        //     i++;
+        // }
 
     // Append remaining elements from arr2
-        while (j < m) {
-            if (Union.empty() || Union.back() != arr2[j])
-                Union.push_back(arr2[j]);
-            j++;
-        }
+    //     while (j < m) {
+    //         if (Union.empty() || Union.back() != arr2[j])
+    //             Union.push_back(arr2[j]);
+    //         j++;
+    //     }
 
-    cout << "Final Union Array" ; 
-    for (int val : Union) cout << val << " ";           
+    // cout << "Final Union Array" ; 
+    // for (int val : Union) cout << val << " ";           
     //~ TC - O(N + M), SC - O(N + M)    
     
 }
@@ -540,13 +540,13 @@ void missingNumberInArray(int arr[], int n) {
     //~ TC - O(N), SC - O(1)
 
     //! Optimal approach:
-    int xor1 =0, xor2 = 0;
-    for(int i =0; i < n; i++){
-        xor2 = xor ^ arr[i];
-        xor1 = xor1 ^ (i + 1);
-    }
-    xor1 = xor1 ^ n;
-    cout << "Missing number in the array is: " << (xor1 ^ xor2) ;
+    // int xor1 =0, xor2 = 0;
+    // for(int i =0; i < n; i++){
+    //     xor2 = xor ^ arr[i];
+    //     xor1 = xor1 ^ (i + 1);
+    // }
+    // xor1 = xor1 ^ n;
+    // cout << "Missing number in the array is: " << (xor1 ^ xor2) ;
     //~ TC - O(N), SC - O(1)
   
 }
@@ -565,9 +565,91 @@ void maxmOnes(int arr[], int n){
     cout << "Maximum consecutive ones are: " << maxm ;
 }
 
+void numbaerOccursOnceInArray(int arr[], int n) {
+    //! Brute force approach:
+    // map<int, int> mp; 
+    // for(int i = 0; i < n; i++){
+    //     mp[arr[i]] ++;
+    // }
+    // for(auto it: mp){
+    //     if(it.second == 1){
+    //         cout << "Number occurs once in the array is: " << it.first ;
+    //         break;
+    //     }
+    // }
+    //~ TC - O(N), SC - O(N)
 
+    //! Optimal approach:
+    int xorResult = 0;
+    for(int i = 0; i < n; i++){
+        xorResult ^= arr[i];
+    }
+    cout << "Number occurs once in the array is: " << xorResult ;
+    //~ TC - O(N), SC - O(1)
+}
 
+void longestSubarrayWithSumKPositive(int arr[], int n, int k) {
+    //! Brute force approach:
+    //  int maxLength = 0;
 
+    //     // starting index
+    //     for (int startIndex = 0; startIndex < n; startIndex++) { 
+    //         // ending index
+    //         for (int endIndex = startIndex; endIndex < n; endIndex++) { 
+    //             /* add all the elements of 
+    //                subarray = nums[startIndex...endIndex]  */
+    //             int currentSum = 0;
+    //             for (int i = startIndex; i <= endIndex; i++) {
+    //                 currentSum += nums[i];
+    //             }
+
+    //             if (currentSum == k)
+    //                 maxLength = max(maxLength, endIndex - startIndex + 1);
+    //         }
+    //     }
+    // cout << "Longest subarray with sum K is: " << maxLength ;
+    //~ TC - O(N^3), SC - O(1)
+
+    //! Optimal approach:
+   int left = 0, sum = 0, maxLen = 0;
+
+    for (int right = 0; right < n; right++) {
+        sum += arr[right];
+
+        while (sum > k) {
+            sum -= arr[left];
+            left++;
+        }
+
+        if (sum == k) {
+            maxLen = max(maxLen, right - left + 1);
+        }
+    }
+    cout << "Longest subarray with sum K is: " << maxLen ;
+    //~ TC - O(N), SC - O(1
+
+}
+
+void longestSubarrayWithSumKPositiveAndNegative(int arr[], int n, int k) {
+    //! Brute force approach:
+    int maxm = 0;
+    for (int i = 0; i < n; i++) {
+            int s = 0; // Reset sum for each new starting index
+
+            // Inner loop: extend the subarray from the current start
+            for (int j = i; j < n; j++) {
+                s += arr[j]; // Add current element to the ongoing sum
+
+                // If current sum equals target, update the max length
+                if (s == k) {
+                    maxm = max(maxm, j - i + 1);
+                }
+            }
+        }
+    cout << "Longest subarray with sum K is: " << maxm ;
+    //~ TC - O(N^2), SC - O(1)
+
+}
 
 
 int main () {
@@ -635,7 +717,14 @@ int main () {
     int arr1[] = {1, 2, 4, 5};
     int arr2[] = {2, 3, 5, 7, 9};
     int arr3[] = {1, 1, 2, 1, 1, 1};
-    int size3 = sizeof(arr3) / sizeof(arr3[0]);
+    // int size3 = sizeof(arr3) / sizeof(arr3[0]);
+    int arr4[ ] = {1, 1, 2, 3, 4, 3, 4};
+    int size4 = sizeof(arr4) / sizeof(arr4[0]);
+    int arr5[] = {10, 5, 2, 7, 1, 9};
+    int size5 = sizeof(arr5) / sizeof(arr5[0]);
+    int arr6[] = {-1, 1, 1}; 
+    int size6 = sizeof(arr6) / sizeof(arr6[0]);
+
 
     // unionOfTwoArrays(arr1, arr2);
 
@@ -643,6 +732,11 @@ int main () {
 
     // maxmOnes(arr3, size3);
 
+    // numbaerOccursOnceInArray(arr4, size4);
+
+    longestSubarrayWithSumKPositive(arr5, size5, 15);
+
+    longestSubarrayWithSumKPositiveAndNegative(arr6, size6, 2);
     
 
     return 0; 
