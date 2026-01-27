@@ -710,6 +710,42 @@ void majorityElement(int arr[], int s){
     //~ TC - O(N), SC - O(1)
 }
 
+void maxmSubarraySum(vector <int> &arr, int n) {
+    int sum = 0, maxm = INT_MIN;
+    int start = 0, ansStart = 0, ansEnd = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (sum == 0) start = i;
+
+        sum += arr[i];
+
+        if (sum > maxm) {
+            maxm = sum;
+            ansStart = start;
+            ansEnd = i;
+        }
+
+        if (sum < 0) {
+            sum = 0;
+        }
+    }
+
+    cout << "Maximum Subarray Sum: " << maxm << " from index " << ansStart << " to " << ansEnd;
+    //~ TC - O(N), SC - O(1)
+}
+
+void buySellStock(vector <int> &arr, int n) {
+    int mini = arr[0];
+    int maxProfit = 0;
+    for(int i = 1; i < n; i++){
+        int profit = arr[i] - mini;
+        maxProfit = max(maxProfit, profit);
+        mini = min(mini, arr[i]);
+    }
+    cout << "Maximum Profit from Stock Buy and Sell: " << maxProfit ;
+    //~ TC - O(N), SC - O(1)
+}
+
 
 
 
@@ -794,13 +830,24 @@ int main () {
     // cout << twoSum(arr11, k) ;
 
     //! Sort an array of 0s, 1s and 2s
-    sortZeroOneTwo(arr12);
+    // sortZeroOneTwo(arr12);
 
     //! Majority Element
     int arr13[] = {7, 0, 0, 1, 7, 7, 2, 7, 7};
     int size13 = sizeof(arr13) / sizeof(arr13[0]);
 
     // majorityElement(arr13, size13);
+
+    //! maxm subarray sum (Kadane's Algorithm)
+
+    vector<int> arr14 = {-2, -3, -7, -2, -10, -4};
+    int n14 = arr14.size();
+    // maxmSubarraySum(arr14, n14);
+
+    vector<int> arr15 = {7,1,5,3,6,4};
+    int n15 = arr15.size();
+
+    buySellStock(arr15, n15);
 
     
     return 0;
