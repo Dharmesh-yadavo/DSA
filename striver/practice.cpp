@@ -651,6 +651,156 @@ void longestSubarrayWithSumKPositiveAndNegative(int arr[], int n, int k) {
 
 }
 
+void twoSum(int arr[], int s, int k) {
+    //! Brute force approach:
+    // for(int i = 0; i < s; i++){
+    //     for(int j = 1; j < s; j++){
+            
+    //         if(arr[i] + arr[j] == k){
+    //             cout << "yes";
+    //             break;
+    //         }
+    //     }
+    // }
+    //~ TC - O(N^2), SC - O(1)
+
+    //! Better approach:
+    // unordered_set<int> set;
+    // for(int i = 0; i < s; i++){
+    //     int complement = k - arr[i];
+    //     if(set.find(complement) != set.end()){
+    //         cout << "yes";
+    //         return;
+    //     }
+    //     set.insert(arr[i]);
+    // }
+    //~ TC - O(N), SC - O(N)
+
+    //! Optimal approach:
+    sort(arr, arr + s);
+    int left = 0, right = s - 1;
+    while(left < right){
+        int sum = arr[left] + arr[right];
+        if(sum == k){
+            cout << "yes";
+            return;
+        }
+        else if(sum < k) left++;
+        else right--;
+    }
+    //~ TC - O(N log N), SC - O(1)
+}
+
+void sortZeroOneAndTwo(int arr[], int s) {
+    //! Brutte / Better approcah: 
+    // int cnt0 = 0, cnt1 = 0, cnt2 = 0;
+    // for (int i = 0; i < s; i++) {
+    //         if (arr[i] == 0) cnt0++;
+    //         else if (arr[i] == 1) cnt1++;
+    //         else cnt2++;
+    // }
+
+    //     // Fill the first 'cnt0' elements with 0
+    //     for (int i = 0; i < cnt0; i++) {
+    //         arr[i] = 0;
+    //     }
+
+    //     // Fill the next 'cnt1' elements with 1
+    //     for (int i = cnt0; i < cnt0 + cnt1; i++) {
+    //         arr[i] = 1;
+    //     }
+
+    //     // Fill the remaining elements with 2
+    //     for (int i = cnt0 + cnt1; i < s; i++) {
+    //         arr[i] = 2;
+    //     }
+    
+    // for(int i = 0; i < s; i++){
+    //     cout << arr[i] << " " ; 
+    // }
+
+    //! Optimal approach:
+    int low = 0, mid = 0, high = s - 1; 
+    while (mid <= high){
+        if(arr[mid] == 0){
+            swap(arr[mid], arr[low]);
+            mid++;
+            low++;
+        }
+        else if(arr[mid] == 1){
+            mid++;
+        }
+        else {
+            swap(arr[mid], arr[high]);
+            high--;
+        }
+    }
+    for(int i = 0; i < s; i++){
+        cout << arr[i] << " " ; 
+    }
+    //~ TC - O(N), SC - O(1)
+}
+
+void majorityElement(int arr[], int s){
+    //! Brute force approach:
+    // int cnt = 0;
+    // for(int i = 0; i < s; i++){
+    //     cnt = 0;
+    //     for(int j = 0; j < s; j++){
+    //         if(arr[i] == arr[j]){
+    //             cnt ++;
+    //         }
+    //     }
+    //     if(cnt > s / 2){
+    //         cout << "Majority element is: " << arr[i];
+    //         return;
+    //     }
+    // } 
+    //~ TC - O(N^2), SC - O(1)
+
+    //! Better approach:
+    // unordered_map<int, int> mp;
+    // for(int i = 0; i < s; i++){
+    //     mp[arr[i]] ++;
+    // }   
+    // for(auto it: mp){
+    //     if(it.second > s / 2){
+    //         cout << "Majority element is: " << it.first ;
+    //         return;
+    //     }
+    // }
+    //~ TC - O(N), SC - O(N)
+
+    //! Optimal approach:
+    
+    //~ TC - O(N), SC - O(1)
+    int cnt = 0;
+    int el ; 
+    for(int i = 0; i < s; i++){
+        if(cnt == 0 ){
+            el = arr[i];
+            cnt ++; 
+        }
+        else if(arr[i] == el){
+            cnt ++;
+        } else {
+            cnt --;
+        }
+    }
+    // Verify if el is majority element
+    int cnt1 = 0;
+    for(int i = 0; i < s; i++){
+        if(arr[i] == el){
+            cnt1 ++;
+        }
+    }
+    if(cnt1 > s / 2){
+        cout << "Majority element is: " << el ;
+    } else {
+        cout << "No Majority element found" ;
+    };
+    //~ TC - O(N), SC - O(1)
+}
 
 int main () {
 
@@ -734,9 +884,21 @@ int main () {
 
     // numbaerOccursOnceInArray(arr4, size4);
 
-    longestSubarrayWithSumKPositive(arr5, size5, 15);
+    // longestSubarrayWithSumKPositive(arr5, size5, 15);
 
-    longestSubarrayWithSumKPositiveAndNegative(arr6, size6, 2);
+    // longestSubarrayWithSumKPositiveAndNegative(arr6, size6, 2);
+
+    // twoSum(arr5, size5, 8);
+
+    int arr7[] = {1, 0, 2, 1, 0};
+    int size7 = sizeof(arr7) / sizeof(arr7[0]);
+
+    // sortZeroOneAndTwo(arr7, size7);
+
+    int arr8[] = {7, 0, 0, 1, 7, 7, 2, 7, 7};
+    int size8 = sizeof(arr8) / sizeof(arr8[0]);
+
+    // majorityElement(arr8, size8);
     
 
     return 0; 

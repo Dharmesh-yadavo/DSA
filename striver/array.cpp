@@ -647,12 +647,67 @@ void sortZeroOneTwo(vector <int> arr) {
         cout << arr[i] ; 
     }
     
+}
 
+void majorityElement(int arr[], int s){
+    //! Brute force approach:
+    // int cnt = 0;
+    // for(int i = 0; i < s; i++){
+    //     cnt = 0;
+    //     for(int j = 0; j < s; j++){
+    //         if(arr[i] == arr[j]){
+    //             cnt ++;
+    //         }
+    //     }
+    //     if(cnt > s / 2){
+    //         cout << "Majority element is: " << arr[i];
+    //         return;
+    //     }
+    // } 
+    //~ TC - O(N^2), SC - O(1)
 
+    //! Better approach:
+    // unordered_map<int, int> mp;
+    // for(int i = 0; i < s; i++){
+    //     mp[arr[i]] ++;
+    // }   
+    // for(auto it: mp){
+    //     if(it.second > s / 2){
+    //         cout << "Majority element is: " << it.first ;
+    //         return;
+    //     }
+    // }
+    //~ TC - O(N), SC - O(N)
 
-
-
-
+    //! Optimal approach:
+    
+    //~ TC - O(N), SC - O(1)
+    int cnt = 0;
+    int el ; 
+    for(int i = 0; i < s; i++){
+        if(cnt == 0 ){
+            el = arr[i];
+            cnt ++; 
+        }
+        else if(arr[i] == el){
+            cnt ++;
+        } else {
+            cnt --;
+        }
+    }
+    // Verify if el is majority element
+    int cnt1 = 0;
+    for(int i = 0; i < s; i++){
+        if(arr[i] == el){
+            cnt1 ++;
+        }
+    }
+    if(cnt1 > s / 2){
+        cout << "Majority element is: " << el ;
+    } else {
+        cout << "No Majority element found" ;
+    };
+    //~ TC - O(N), SC - O(1)
 }
 
 
@@ -741,6 +796,12 @@ int main () {
     //! Sort an array of 0s, 1s and 2s
     sortZeroOneTwo(arr12);
 
+    //! Majority Element
+    int arr13[] = {7, 0, 0, 1, 7, 7, 2, 7, 7};
+    int size13 = sizeof(arr13) / sizeof(arr13[0]);
 
+    // majorityElement(arr13, size13);
+
+    
     return 0;
 }
