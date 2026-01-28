@@ -746,6 +746,85 @@ void buySellStock(vector <int> &arr, int n) {
     //~ TC - O(N), SC - O(1)
 }
 
+void rearrangeArrayByAlternateSign(vector<int> &arr, int s) {
+    //! Brutte force approach: 
+    // vector<int> pos;
+    // vector<int> neg;
+    // for(int i = 0; i < s; i++){
+    //     if(arr[i] > 0){
+    //         pos.push_back(arr[i]); 
+    //     } 
+    //     else {
+    //         neg.push_back(arr[i]);
+    //     }
+    // }
+    // for(int i = 0; i < s/2; i++){
+    //     arr[2 * i] = pos[i]; 
+    //     arr[2 * i + 1] = neg[i]; 
+    // }
+    // for(auto x: arr){
+    //     cout << x << " " ;
+    // }
+    //~ TC = O(N), SC = O(N)
+
+    //! Optimal approach: 
+    vector <int> ans(s, 0); 
+    int posIndex = 0, negIndex = 1 ; 
+    for (int i = 0; i < s; i++) {
+        if (arr[i] < 0) {
+            // Place negative numbers at odd indices
+            ans[negIndex] = arr[i];
+            negIndex += 2;
+        } else {
+            // Place positive numbers at even indices
+            ans[posIndex] = arr[i];
+            posIndex += 2;
+        }
+    }
+    for(auto x: ans){
+        cout << x << " ";
+    }
+
+}
+
+
+void nextPermutation(vector<int> &nums){
+        // Set index to -1
+        int index = -1;
+
+        // Find the first decreasing element from end
+        for (int i = nums.size() - 2; i >= 0; i--) {
+            // If a smaller element found
+            if (nums[i] < nums[i + 1]) {
+                // Store index
+                index = i;
+                break;
+            }
+        }
+
+        // If no such index found
+        if (index == -1) {
+            // Reverse the entire array
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+
+        // Find element just greater than nums[index]
+        for (int i = nums.size() - 1; i > index; i--) {
+            // Swap the two
+            if (nums[i] > nums[index]) {
+                swap(nums[i], nums[index]);
+                break;
+            }
+        }
+
+        // Reverse the part after index
+        reverse(nums.begin() + index + 1, nums.end());
+
+        for(auto x: nums){
+            cout << x << " ";
+        }
+}
 
 
 
@@ -847,7 +926,20 @@ int main () {
     vector<int> arr15 = {7,1,5,3,6,4};
     int n15 = arr15.size();
 
-    buySellStock(arr15, n15);
+    // buySellStock(arr15, n15);
+    
+    //! Rearrange Array Elements by alternate Sign 
+
+    vector<int> arr16 = {1,2,-3,-1,-2,3};
+    int n16 = arr16.size();
+
+    // rearrangeArrayByAlternateSign(arr16, n16);
+
+    //! Next permutation: 
+    
+    vector <int> arr17 = {1, 3, 2}; 
+    nextPermutation(arr17); 
+
 
     
     return 0;
