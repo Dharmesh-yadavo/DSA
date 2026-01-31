@@ -826,6 +826,130 @@ void nextPermutation(vector<int> &nums){
         }
 }
 
+void leaderInArray (vector <int> &arr, int s){
+    //! Brutte force approach 
+    // vector <int> res; 
+    // for(int i = 0; i < s; i++){
+    //     bool isLeader = true; 
+
+    //     for(int j = i + 1; j < s; j ++){
+    //         if(arr[j] > arr[i]){
+    //             isLeader = false;
+    //             break; 
+    //         }
+    //     }
+    //     if (isLeader) {
+    //         res.push_back(arr[i]);
+    //     }
+    // }
+    // for(auto x: res){
+    //     cout << x << " ";
+    // }
+
+    //! Optimal approach 
+    // set <int> ans; 
+    // int maxL = 0, maxA = 0; 
+    // ans.insert(arr[s-1]); 
+    // for(int i = s - 2; i >= 0; i--){
+    //     maxL = max(arr[i], arr[i+1]);
+    //     maxA = max(maxL, maxA);
+    //     if (ans.find(maxA) == ans.end()) {
+    //         ans.insert(maxA); 
+    //     }
+    // }
+    // for(auto x: ans){
+    //     cout << x << " ";
+    // }
+
+    vector <int> ans;
+    int maxL = arr[s-1]; 
+    ans.push_back(arr[s-1]); 
+    for(int i = s - 2; i >= 0; i--){
+        if(arr[i] > maxL){
+            ans.push_back(arr[i]);
+            maxL = arr[i];
+        }
+    }
+    for(auto x: ans){
+        cout << x << " "; 
+    }; 
+}
+
+bool linearSearch(vector <int> &arr, int x){
+    for(int i = 0; i < arr.size(); i++){
+        if(arr[i] == x){
+            return true; 
+        }
+    }
+    return false;
+}
+
+void longestConsecutive (vector <int> &arr, int s) {
+    //! Brute force approach: 
+    // int longest = 1; 
+    // for(int i = 0; i < s; i++){
+    //     int x = arr[i]; 
+    //     int cnt = 1; 
+    //     while (linearSearch(arr, x + 1) == true) {
+    //         x += 1; 
+    //         cnt += 1; 
+    //     }
+    //     longest = max(cnt, longest); 
+    // }
+    // cout << longest ; 
+    //~ TC = 0(n^3), SC = 0(1)
+
+    //! Better approach: 
+    // sort(arr.begin(), arr.end()); 
+    // int cnt = 1; 
+    // int longest = 1; 
+    // for(int i = 0; i < s - 1; i++){
+    //     if(arr[i] ==  arr[i+1]){
+    //         continue; 
+    //     }
+    //     else if((arr[i] + 1) == arr[i + 1]){
+    //         cnt ++ ; 
+    //     } else {
+    //         cnt = 1 ; 
+    //     }
+    //     longest = max(cnt, longest); 
+    // }
+    // cout << longest ; 
+    //~ TC =  O(n log n) , SC = O(1)
+
+    //! Optimal approach: 
+     if (arr.empty()){ 
+        cout << 0 ; 
+        return; 
+    };
+
+    unordered_set<int> st(arr.begin(), arr.end());
+    int longest = 1;
+
+    for (int x : st) {
+
+        // only start counting if x is the start of a sequence
+        if (st.find(x - 1) == st.end()) {
+
+            int curr = x;
+            int cnt = 1;
+
+            // expand sequence
+            while (st.find(curr + 1) != st.end()) {
+                curr++;
+                cnt++;
+            }
+
+            longest = max(longest, cnt);
+        }
+    }
+
+    cout <<  longest;
+
+    //~ TC = O(N) , SC = O(N)
+
+
+}
 
 
 int main () {
@@ -938,7 +1062,21 @@ int main () {
     //! Next permutation: 
     
     vector <int> arr17 = {1, 3, 2}; 
-    nextPermutation(arr17); 
+    // nextPermutation(arr17); 
+
+    //! Leaders in an Array problem: 
+
+    vector <int> arr18 = {10, 8, 9, 7}; 
+    int n18 = arr18.size(); 
+
+    // leaderInArray(arr18, n18); 
+
+    //! Longest Consecutive Sequence in an Array
+
+    vector <int> arr19= {0, 3, 7, 2, 5, 8, 4, 6, 0, 1}; 
+    int n19 = arr19.size(); 
+
+    longestConsecutive(arr19, n19); 
 
 
     
