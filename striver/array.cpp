@@ -121,13 +121,13 @@ int rotateArrayByOne(vector <int> &arr) {
 
 }
 
-    void reverseArray(int nums[], int start, int end) {
-        while (start < end) {
-            swap(nums[start], nums[end]);
-            start++;
-            end--;
-        }
+void reverseArray(int nums[], int start, int end) {
+    while (start < end) {
+        swap(nums[start], nums[end]);
+        start++;
+        end--;
     }
+}
 
 void rotateLeft(int arr[], int s, int k){
 
@@ -951,6 +951,264 @@ void longestConsecutive (vector <int> &arr, int s) {
 
 }
 
+ void setMatrixZero(vector<vector<int>>& matrix) {
+    // Get number of rows
+    int m = matrix.size();
+    // Get number of columns
+    int n = matrix[0].size();
+
+    //! Brutte force approach:  
+    // for(int i = 0; i < m ; i ++){
+    //     for(int j = 0; j < n ; j++){
+    //         if(matrix[i][j] == 0){
+    //            for(int col = 0; col < n; col++){
+    //             if(matrix[i][col] != 0){
+    //                 matrix[i][col] = -1; 
+    //             }
+    //            }
+    //            for(int row = 0; row < m; row++){
+    //             if(matrix[row][j] != 0){
+    //                 matrix[row][j] = -1; 
+    //             }
+    //            }
+    //         }
+    //     }
+    // }
+
+    // for(int i = 0; i < m; i++){
+    //     for(int j = 0; j < n; j++){
+    //         if(matrix[i][j] == -1){
+    //             matrix[i][j] = 0; 
+    //         }
+    //     }
+    // }
+
+    //! Better Approach: 
+    // Create row marker array
+    vector<int> row(m, 0);
+    // Create column marker array
+    vector<int> col(n, 0);
+
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(matrix[i][j] == 0){
+                row[i] = 1; 
+                col[i] = 1; 
+            }
+        }
+    }
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (row[i] == 1 || col[j] == 1) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    //! Optimal approach: 
+
+    //  vector<int> row(m, 0); // matrix[..][0]
+    // vector<int> col(n, 0);  // matrix[0][..]
+    int col0 = 1; // so that they dont overlap 
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(matrix[i][j] == 0){
+                matrix[i][0] = 0; 
+
+                if(j != 0){
+                    matrix[0][j] = 0; 
+                } 
+                else {
+                    col0 = 0; 
+                }
+            }
+        }
+    }
+
+    for (int i = 1; i < m; i++) {
+        for (int j = 1; j < n; j++) {
+            if(matrix[i][j] != 0){
+                if(matrix[0][j] == 0 || matrix[i][0] == 0){
+                    matrix[i][j] = 0; 
+                }
+            }
+        }
+    }
+    if(matrix[0][0] == 0){
+        for(int j = 0; j < n; j++){
+            matrix[0][j] = 0; 
+        }
+    }
+    if(col0 == 0){
+       for(int i= 0; i < m; i++){
+            matrix[i][0] = 0; 
+        }
+    }
+
+
+ }
+
+ void rotateMatrixBy90Degree (vector<vector<int>> &matrix) {
+     int m = matrix.size(); 
+     int n = matrix[0].size();
+
+    //! Brutte force approach: 
+    // vector <int> col; 
+    // vector <int> arr; 
+
+    // for(int i = 0; i < m; i++){
+    //     for(int j = 0; j < n; j++){
+    //         col.push_back(matrix[j][i]); 
+    //     }
+    //     reverse(col.begin(), col.end());  
+    //     for(auto x: col){
+    //         arr.push_back(x);  
+    //     }
+    //     col.clear(); 
+
+    // }
+    // int index = 0; 
+
+    // for(int i = 0; i < m; i++){
+    //     for(int j = 0; j < n; j++){
+    //         matrix[i][j] = arr[index];
+    //         index++;
+    //         cout <<  matrix[i][j] << " "; 
+    //     }
+    // }
+
+    //~ TC = o(N^2) , SC = O(N^2)
+
+    //! Better approach: 
+
+    // vector <int> arrs; 
+
+    // for(int i = 0; i < m; i++){
+    //     for(int j = n-1 ; j >= 0; j--){
+    //         arrs.push_back(matrix[j][i]); 
+    //     }
+    // }
+    // int index = 0; 
+    // for(int i = 0; i < m; i++){
+    //     for(int j = 0; j < n; j++){
+    //         matrix[i][j] = arrs[index];
+    //         index++;
+    //     }
+    // }
+
+    // for(int i = 0; i < m; i++){
+    //     for(int j = 0; j < n; j++){
+    //         cout << matrix[i][j] << " " ;
+    //     }
+    // }
+
+    //~ TC = o(N^2) , SC = O(1)
+
+    //!Optimal approach: 
+
+    for(int i = 0; i < m; i++){
+        for(int j = i + 1; j < n; j++){
+            swap(matrix[i][j], matrix[j][i]);
+        }
+        reverse(matrix[i].begin(), matrix[i].end()); 
+    }
+
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            cout << matrix[i][j] << " " ;
+        }
+    }
+
+    //~ TC = O(N^2) , SC = O(1)
+
+ };     
+
+void spiralTraversalMatrix(vector<vector<int>> &matrix) {
+    int top = 0;
+    int bottom = matrix.size() - 1;
+    int left = 0;
+    int right = matrix[0].size() - 1;
+
+    // cout << "top: " << top << endl; 
+    // cout << "bottom: " << bottom << endl; 
+    // cout << "left: " << left << endl; 
+    // cout << "right: " << right << endl; 
+ 
+    // Traverse the matrix in spiral order
+        while(top <= bottom && left <= right) {
+
+            // Traverse from left to right across the top row
+            for(int i = left; i <= right; i++) {
+                result.push_back(matrix[top][i]);
+            }
+            top++; // Move top boundary down
+
+            // Traverse from top to bottom on the right column
+            for(int i = top; i <= bottom; i++) {
+                result.push_back(matrix[i][right]);
+            }
+            right--; // Move right boundary left
+
+            // Check if there are rows remaining
+            if(top <= bottom) {
+                // Traverse from right to left on the bottom row
+                for(int i = right; i >= left; i--) {
+                    result.push_back(matrix[bottom][i]);
+                }
+                bottom--; // Move bottom boundary up
+            }
+
+            // Check if there are columns remaining
+            if(left <= right) {
+                // Traverse from bottom to top on the left column
+                for(int i = bottom; i >= top; i--) {
+                    result.push_back(matrix[i][left]);
+                }
+                left++; // Move left boundary right
+            }
+        }
+    
+}
+
+void countSubArraySum (vector <int> &arr, int s, int k) {
+    // int cnt = 0; 
+    // for(int i = 0; i < s; i++){
+    //     int sum = 0; 
+    //     for(int j = i; j < s; j++){
+    //         sum += arr[j]; 
+    //         if(sum == k){
+    //             cnt++; 
+    //         }
+    //     }; 
+    // }
+    // cout << cnt ; 
+    // ~ TC = O(N^2) , SC = O(1) 
+
+    // map <int, int> mp; 
+    // for(int i = 0; i < s; i++){
+    //     mp[arr[i]]++;
+    // }
+    // int sum = 0; 
+    // int cnt = 0; 
+    // int i = 0; 
+    // for(int j = i; j < s; j++){
+    //     sum += arr[j]; 
+    //     int rem = k - sum; 
+    //     cout << mp.find(rem) << endl ;
+    //     if(mp.find(rem) != mp.end()){
+    //         cnt++; 
+    //         cout << "i: " << i << " j: " << j << endl ;
+    //         cout << cnt; 
+    //         sum = 0; 
+    //         i++; 
+    //     } 
+    // }
+    // cout << cnt ; 
+}
+
+
+
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
@@ -1076,7 +1334,35 @@ int main () {
     vector <int> arr19= {0, 3, 7, 2, 5, 8, 4, 6, 0, 1}; 
     int n19 = arr19.size(); 
 
-    longestConsecutive(arr19, n19); 
+    // longestConsecutive(arr19, n19); 
+
+    //! Set MAtrix Zero 
+
+    vector<vector<int>> matrix = {{1,1,1},{1,0,1},{1,1,1}};
+
+    setMatrixZero(matrix);
+
+     // Print final matrix
+    // for (auto row : matrix) {
+    //     for (auto val : row) {
+    //         cout << val << " ";
+    //     }
+    //     cout << endl;
+    // }
+    
+    //! Rotate Image by 90 degree
+    vector<vector<int>> matrix1 = {{1,2,3},{4,5,6},{7,8,9}};
+    // rotateMatrixBy90Degree(matrix1); 
+
+    //! Spiral Traversal of Matrix 
+    spiralTraversalMatrix(matrix1); 
+
+    //! Count Subarray sum Equals K
+    // vector <int> arr20 = {3, 1, 2, 4}; 
+    // int n20 = arr20.size(); 
+    // countSubArraySum(arr20, n20, 6); 
+
+
 
 
     
