@@ -1129,6 +1129,7 @@ void spiralTraversalMatrix(vector<vector<int>> &matrix) {
     int bottom = matrix.size() - 1;
     int left = 0;
     int right = matrix[0].size() - 1;
+    vector<int> result; 
 
     // cout << "top: " << top << endl; 
     // cout << "bottom: " << bottom << endl; 
@@ -1185,29 +1186,152 @@ void countSubArraySum (vector <int> &arr, int s, int k) {
     // cout << cnt ; 
     // ~ TC = O(N^2) , SC = O(1) 
 
-    // map <int, int> mp; 
+    unordered_map <int, int> mp; 
+    int sum = 0; 
+    int cnt = 0; 
+    for(int i = 0; i < s; i++){
+        sum += arr[i];
+
+        if(mp.find(sum - k) != mp.end()){
+            cnt += mp[sum - k];
+        }
+
+        mp[sum]++;
+    }
+    cout << cnt ; 
+}
+
+void countSubArray (vector<int> &arr, int s){
+    //! Brutte force approach: 
+    // for(int i = 0; i < s; i++){
+    //     int cnt = 1; 
+    //     for(int j = i + 1; j < s; j++){
+    //         if(arr[i] == arr[j]){
+    //             cnt++; 
+    //         }
+    //     }
+    //     if(cnt > s/3 ){
+    //         cout << arr[i] << " "; 
+    //     }
+    // }
+    //~ TC = O(N^2), SC = O(N)
+
+    //! Better approach: 
+    // map<int, int> mp; 
     // for(int i = 0; i < s; i++){
     //     mp[arr[i]]++;
     // }
-    // int sum = 0; 
-    // int cnt = 0; 
-    // int i = 0; 
-    // for(int j = i; j < s; j++){
-    //     sum += arr[j]; 
-    //     int rem = k - sum; 
-    //     cout << mp.find(rem) << endl ;
-    //     if(mp.find(rem) != mp.end()){
-    //         cnt++; 
-    //         cout << "i: " << i << " j: " << j << endl ;
-    //         cout << cnt; 
-    //         sum = 0; 
-    //         i++; 
-    //     } 
+    // for(auto x : mp){
+    //     if(x.second > s/3){
+    //         cout << x.first << " " << endl; 
+    //     }
     // }
-    // cout << cnt ; 
+
+    //~ TC = O(N) , SC = O(N)
+
+    //! Optimal approach: 
+    int cnt1 = 0, cnt2 = 0;
+    int el1, el2 ; 
+    for(int i = 0; i < s; i++){
+        if(cnt1 == 0 && el2 != arr[i]){ 
+            el1 = arr[i];
+            cnt1 ++; 
+        }
+        else if(cnt2 == 0 && el1 != arr[i]){
+            el2 = arr[i];
+            cnt2 ++; 
+        }
+        else if(arr[i] == el1){
+            cnt1 ++;
+        }
+        else if(arr[i] == el2){
+            cnt2 ++;
+        } 
+        else {
+            cnt1--, cnt2--;
+        }
+    }
+    // Verify if el is majority element
+    cnt1 = 0, cnt2 = 0; 
+        
+        for (int i = 0; i < s; i++) {
+            if (arr[i] == el1) {
+                // Count occurrences of el1
+                cnt1++; 
+            }
+            if (arr[i] == el2) {
+                 // Count occurrences of el2
+                cnt2++;
+            }
+        }
+    if(cnt1 > s / 3){
+        cout << "Majority element is: " << el1 ;
+    } 
+    else if (cnt2 > s/3) {
+        cout << "Majority element is: " << el2 ;
+        
+    }
+    else {
+        cout << "No Majority element found" ;
+    };
 }
 
+int nCr (int n, int r){
+    long long res = 1;
+    for(int i = 0; i < r; i++){
+        res = res * (n - i);
+        res = res / (i + 1); 
+    }
+    return res; 
+}
 
+void pascalTriangle1(int r, int c) {
+    // (r - 1) C (c - 1) 
+    int res = nCr(r - 1, c - 1); 
+    cout << res; 
+}
+
+void pascalTriangle2(int r){
+    for(int i = 1; i <= r; i++){
+        int res = nCr(r-1, i-1);
+        cout << res << " " ; 
+    }
+    cout << endl; 
+    //~ TC = O(N^2) , SC = O(1)
+
+    int ans = 1 ;
+    cout << ans << " "; 
+    for(int i = 1 ; i < r; i++){
+        ans = ans * (r-i);
+        ans = ans / i; 
+        cout << ans << " ";
+    }
+    //~ TC = O(N) , SC = O(1)
+}
+
+void pascalTriangle3(int r){
+    // for(int i = 1; i <= r; i++){
+    //     for(int j = 1; j <= i; j++){
+    //         int res = nCr(i-1, j-1);
+    //         cout << res << " " ; 
+    //     }
+    //     cout << endl;
+    // }
+    //~ TC = O(N^3) , SC = o(1)
+
+    for(int i = 1; i <= r; i++){
+        int ans = 1 ;
+        cout << ans << " "; 
+        for(int j = 1 ; j < i; j++){
+            ans = ans * (i-j);
+            ans = ans / j; 
+            cout << ans << " ";
+        }
+        cout << endl;
+    }
+    //~ TC = O(N^2) , SC = O(1)
+
+}
 
 
 int main () {
@@ -1340,7 +1464,7 @@ int main () {
 
     vector<vector<int>> matrix = {{1,1,1},{1,0,1},{1,1,1}};
 
-    setMatrixZero(matrix);
+    // setMatrixZero(matrix);
 
      // Print final matrix
     // for (auto row : matrix) {
@@ -1355,12 +1479,30 @@ int main () {
     // rotateMatrixBy90Degree(matrix1); 
 
     //! Spiral Traversal of Matrix 
-    spiralTraversalMatrix(matrix1); 
+    // spiralTraversalMatrix(matrix1); 
 
     //! Count Subarray sum Equals K
     // vector <int> arr20 = {3, 1, 2, 4}; 
     // int n20 = arr20.size(); 
     // countSubArraySum(arr20, n20, 6); 
+
+    //! count more than N/3 times: 
+    // vector<int> arr21 =  {1, 2, 1, 1, 3, 2, 2}; 
+    // int n21 = arr21.size(); 
+    // countSubArray(arr21, n21); 
+
+    //! Pascal Triangle: 
+    //~ Given row and column find that element 
+    // pascalTriangle1(5, 3);
+
+    //~ print any nth row of pascal triangle 
+    // pascalTriangle2(4); 
+
+    //~ Given n = row and print the entire pascal triangle 
+    // pascalTriangle3(5); 
+
+
+
 
 
 
