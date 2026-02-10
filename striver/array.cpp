@@ -1186,7 +1186,7 @@ void countSubArraySum (vector <int> &arr, int s, int k) {
     // cout << cnt ; 
     // ~ TC = O(N^2) , SC = O(1) 
 
-    unordered_map <int, int> mp; 
+    unordered_map <int, int> mp = {{0, 1}};; 
     int sum = 0; 
     int cnt = 0; 
     for(int i = 0; i < s; i++){
@@ -1199,7 +1199,7 @@ void countSubArraySum (vector <int> &arr, int s, int k) {
         mp[sum]++;
     }
     cout << cnt ; 
-}
+};
 
 void countSubArray (vector<int> &arr, int s){
     //! Brutte force approach: 
@@ -1333,13 +1333,208 @@ void pascalTriangle3(int r){
 
 }
 
+void threeSum(vector <int> &arr, int s){
+    //! Brutte force approach: 
+    // set<vector<int>> st; 
+    // for(int i = 0; i < s; i++){
+    //     for(int j = i + 1; j < s; j++){
+    //         for(int k = j + 1; k < s; k++){
+    //             if(arr[i] + arr[j] + arr[k] == 0 ){
+    //                 vector<int> temp ={ arr[i], arr[j], arr[k]}; 
+    //                 sort(temp.begin(), temp.end()); 
+    //                 st.insert(temp); 
+    //             }
+    //         }
+    //     }
+    // } 
+    // for (auto x : st) {
+    //     for (int num : x) {
+    //         cout << num << " ";
+    //     }
+    //     cout << endl;
+    // }
+    //~ TC = O(N³ * log (M = number of unique triplets) )  ≈  O(N³ log N) 
+    //~ SC = 2 * O(no. of triplet)
+
+    //! Better approach: 
+    // set<vector<int>> ans;
+    // for (int i = 0; i < s; i++) {
+    //     unordered_set<int> st;
+    //     for (int j = i + 1; j < s; j++) {
+    //         int third = -(arr[i] + arr[j]);
+    //         if (st.find(third) != st.end()) {
+    //             vector<int> temp = {arr[i], arr[j], third};
+    //             sort(temp.begin(), temp.end());
+    //             ans.insert(temp);
+    //         }
+    //         st.insert(arr[j]);
+    //     }
+    // }
+    // for (auto x : ans) {
+    //     for (int num : x) cout << num << " ";
+    //     cout << endl;
+    // }
+    //~ TC = O(N² * log N) , SC = O(N)
+
+    //! Optimal approach: 
+    sort(arr.begin(), arr.end()); 
+    for(int i = 0; i < s; i++) {
+        if(i > 0 && arr[i] == arr[i-1]) continue;
+        int j = i + 1; 
+        int k = s - 1; 
+        while(j < k){
+            int sum = arr[i] + arr[j] + arr[k];
+            if(sum < 0){
+                j++; 
+            }
+            else if(sum > 0){
+                k--;
+            }
+            else {
+                cout << arr[i] << " " << arr[j] << " " << arr[k] << endl; 
+                j++;
+                k--;
+                while(j < k && arr[j] == arr[j - 1]) j++; 
+                while(j < k && arr[k] == arr[k + 1]) k--; 
+            }
+        }
+    }
+    //~ TC = O(N log N + N²)  ≈  O(N²) , Sc = O(1) 
+}
+
+void fourSum(vector <int> &arr, int s, int m) {
+    //! Brutte force approach: 
+    // set<vector<int>> ans;
+    // for(int i = 0; i < s; i++) {
+    //     for(int j = i + 1; j < s; j++){
+    //         unordered_set<int> st;
+    //         for(int k = j + 1; k < s; k++) {
+    //             int fourth = m - (arr[i] + arr[j] + arr[k]); 
+    //             if (st.find(fourth) != st.end()) {
+    //                 vector<int> temp = {arr[i], arr[j], arr[k], fourth };
+    //                 sort(temp.begin(), temp.end());
+    //                 ans.insert(temp);
+    //             }
+    //             st.insert(arr[k]);
+    //         }
+    //     }
+    // }
+    // for (auto x : ans) {
+    //     for (int num : x) cout << num << " ";
+    //     cout << endl;
+    // }
+    //~ TC = O(N^3 * log M), SC = O(2 * no. of the quadruplets) 
+
+    //! Better approach: 
+    sort(arr.begin(), arr.end());
+    for(int i = 0; i < s; i++) {
+        if(i > 0 && arr[i] == arr[i-1]) continue;
+        for(int j = i + 1; j < s; j++){
+            if (j > i + 1 && arr[j] == arr[j - 1]) continue;
+            int k = j + 1;
+            int l = s - 1; 
+
+            while(k < l) {
+                int sum = arr[i] + arr[j] + arr[k] + arr[l];
+                if(sum < m){
+                    k++; 
+                }
+                else if(sum > m){
+                    l--;
+                }
+                else {
+                    cout << arr[i] << " " << arr[j] << " " << arr[k] << " " << arr[l] << " " << endl; 
+                    k++;
+                    l--;
+                    while(k < l && arr[k] == arr[k - 1]) k++; 
+                    while(k < l && arr[l] == arr[l + 1]) l--; 
+                }
+            }
+        } 
+    }
+}
+
+void longestSubarrayWithSumZero(vector <int> &arr, int s){
+    //! Brutte force approach: 
+    // int maxCnt = 0; 
+    // for(int i = 0; i < s; i++){
+    //     int sum = arr[i]; 
+    //     for(int j = i + 1; j < s; j++){
+    //         sum += arr[j];
+    //         if(sum == 0){
+    //             maxCnt = max(maxCnt, j - i + 1);
+    //         }
+    //     }
+    // }
+    // cout << maxCnt ; 
+    //~ TC = O(N^2) , SC = O(1)
+
+    //! Optimal approach: 
+    unordered_map<int, int> mp; 
+    int maxi = 0, sum = 0; 
+    for(int i = 0; i < s; i++){
+        sum += arr[i]; 
+        if(sum == 0){
+            maxi = i + 1; 
+        }
+        else {
+            if(mp.find(sum) != mp.end()){
+                maxi = max(maxi, i - mp[sum]); 
+            }
+            else{
+                mp[sum] = i;
+            }
+        }
+    }
+    cout << maxi ; 
+    //~ TC = O(N) , SC = O(1)
+
+}; 
+
+void countOfSubArrayWithXorK(vector <int> &arr, int s, int k){
+    //! Brutte approach: 
+    // int cnt = 0; 
+    // for(int i = 0; i < s; i++){
+    //     int res = arr[i]; 
+    //     if(res == k){
+    //         cnt++; 
+    //     }
+    //     for(int j = i + 1; j < s; j++){
+    //         res = res ^ arr[j]; 
+    //         if(res == k){
+    //             cnt++; 
+    //         }
+    //     }
+    // }
+    // cout << cnt; 
+    //~ TC = O(N^2) , SC = O(1)
+
+    //! Optimal approach: 
+    unordered_map<int, int> mp; 
+    int cnt = 0, res = 0; 
+    for(int i = 0; i < s; i++){
+        if(arr[i] == k) cnt++; 
+        res = res ^ arr[i]; 
+        if(res == k) cnt++;
+        else {
+            if(mp.find(res) != mp.end()){
+                 cnt++; 
+            }
+            else{
+                mp[res] = i;
+            }
+        }
+    }
+    cout << cnt ;
+    //~ TC = O(N) , SC = O(1)
+}
 
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
     int s = sizeof(arr)/ sizeof(arr[0]);
     // int k = 2;
 
-    vector<int> arr1 = {2, 5, 1, 3, 0};
+    vector<int> arr1 = {2, 5, 1, 3, 0}; 
     vector<int> arr2 = {8, 10, 5, 7, 9};
     vector<int> arr3 = {1, 2, 3, 4, 5, 6}; 
     vector<int> arr4 = {1, 1, 1, 2, 2, 3, 3, 3};
@@ -1501,7 +1696,25 @@ int main () {
     //~ Given n = row and print the entire pascal triangle 
     // pascalTriangle3(5); 
 
+    //! 3 sum: 
+    // vector <int> arr22 = {-1,0,1,2,-1,-4}; 
+    // int n22 = arr22.size(); 
+    // threeSum(arr22, n22); 
 
+    //! 4 sum: 
+    // vector <int> arr23 = {4,3,3,4,4,2,1,2,1,1}; 
+    // int n23 = arr23.size(); 
+    // fourSum(arr23, n23, 9); 
+
+    //! Length of the longest subarray with zero Sum : 
+    vector<int> num1 = {9, -3, 3, -1, 6, -5}; 
+    int s1 = num1.size(); 
+    // longestSubarrayWithSumZero(num1, s1); 
+
+    //! Count the number of subarrays with given xor K : 
+    vector <int> num2 = {4, 2, 2, 6, 4}; 
+    int s2 = num2.size(); 
+    countOfSubArrayWithXorK(num2, s2, 6); 
 
 
 
