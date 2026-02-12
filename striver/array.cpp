@@ -1529,6 +1529,84 @@ void countOfSubArrayWithXorK(vector <int> &arr, int s, int k){
     //~ TC = O(N) , SC = O(1)
 }
 
+void mergeOverlappingSubInterval(vector<vector<int>> &arr, int s) {
+    vector<vector<int>> ans; 
+    sort(arr.begin(), arr.end());
+    //! Brutte force approach:     
+    // for(int i = 0; i < s;){
+    //     int start = arr[i][0]; 
+    //     int end = arr[i][1];
+
+    //     int j = i + 1; 
+    //     while(j < s && arr[j][0] <= end){
+    //         end = max(end, arr[j][1]); 
+    //         j++; 
+    //     }
+    //     ans.push_back({start, end}); 
+    //     i = j;
+    // }
+    // for(auto x : ans){
+    // cout << x[0] << " " << x[1] << endl;
+    // }
+    //~ TC = O(N^2), SC = O(N)
+
+    //! Optimal approach: 
+    for(auto x: arr){
+        if(ans.empty() || ans.back()[1] < x[0] ){
+            ans.push_back(x); 
+        } else {
+            ans.back()[1] = max(ans.back()[1], x[1]);
+        }
+    }
+    for(auto x : ans){
+        cout << x[0] << " " << x[1] << endl;
+    }
+    //~ TC = O(N * logN), SC = O(N)
+
+}
+
+void mergeTwoSotedArrays(vector<int> arr1, vector<int> arr2) {
+    int n = arr2.size(); 
+    int m = arr1.size() - n; 
+    //! Brutte force approach: 
+    // vector<int> res; 
+    // for(int i = m; i < m + n; i++){
+    //     arr1[i] = arr2[i - m]; 
+    // }
+    // sort(arr1.begin(), arr1.end()); 
+    // for(auto x: arr1){
+    //     cout << x << " "; 
+    // }
+    //~ TC = O((m+n) log(m+n)) , SC = O(1) 
+
+    //! Optimal approach: 
+    int i = m - 1; 
+    int j = n - 1; 
+    int k = m + n - 1; 
+    while(i >= 0 && j >= 0){
+        if(arr1[i] > arr2[j]){
+            arr1[k] = arr1[i]; 
+            i--;
+            k--;
+        }
+        else {
+            arr1[k] = arr2[j]; 
+            j--;
+            k--;
+        }
+    }
+    while(j >= 0){
+        arr1[k] = arr2[j]; 
+        k--;
+        j--;
+    }
+    for(auto x: arr1){
+        cout << x << " "; 
+    }
+    //~ TC = O(N) , SC = O(1)
+
+}
+
 int main () {
     int arr[] = {1, 4, 3, 2, 9, 6 };
     int s = sizeof(arr)/ sizeof(arr[0]);
@@ -1714,7 +1792,20 @@ int main () {
     //! Count the number of subarrays with given xor K : 
     vector <int> num2 = {4, 2, 2, 6, 4}; 
     int s2 = num2.size(); 
-    countOfSubArrayWithXorK(num2, s2, 6); 
+    // countOfSubArrayWithXorK(num2, s2, 6); 
+
+    //! Merge Overlapping Sub-intervals : 
+    vector<vector<int>> num3 = {{1, 3}, {2, 6}, {5, 8}, {10, 15}, {12, 23}};
+    int s3 = num3.size(); 
+    // mergeOverlappingSubInterval(num3, s3);
+
+    //! Merge two Sorted Arrays Without Extra Space : 
+    vector <int> num4 = {0, 2, 7, 8, 0, 0, 0}; 
+    vector <int> num5 = {-7, -3, -1};
+    mergeTwoSotedArrays(num4, num5); 
+
+
+
 
 
 
