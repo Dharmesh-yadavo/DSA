@@ -1511,19 +1511,17 @@ void countOfSubArrayWithXorK(vector <int> &arr, int s, int k){
 
     //! Optimal approach: 
     unordered_map<int, int> mp; 
+    mp[0] = 1;
     int cnt = 0, res = 0; 
     for(int i = 0; i < s; i++){
-        if(arr[i] == k) cnt++; 
         res = res ^ arr[i]; 
-        if(res == k) cnt++;
-        else {
-            if(mp.find(res) != mp.end()){
-                 cnt++; 
-            }
-            else{
-                mp[res] = i;
-            }
+        
+        if(mp.find(res ^ k) != mp.end()){
+            cnt += mp[res ^ k]; 
         }
+
+        mp[res]++;  
+            
     }
     cout << cnt ;
     //~ TC = O(N) , SC = O(1)
@@ -1577,7 +1575,7 @@ void mergeTwoSotedArrays(vector<int> arr1, vector<int> arr2) {
     // for(auto x: arr1){
     //     cout << x << " "; 
     // }
-    //~ TC = O((m+n) log(m+n)) , SC = O(1) 
+    //~ TC = O((m+n) * log(m+n)) , SC = O(1) 
 
     //! Optimal approach: 
     int i = m - 1; 
@@ -1604,6 +1602,184 @@ void mergeTwoSotedArrays(vector<int> arr1, vector<int> arr2) {
         cout << x << " "; 
     }
     //~ TC = O(N) , SC = O(1)
+
+}
+
+void repeantingAndMissingNumber(vector<int> &arr, int s){
+    //! Brutte force approach: 
+    // int sum = 0; 
+    // int realSum = 0; 
+    // for(int i = 0; i < s; i++){
+    //     sum += arr[i]; 
+    //     realSum += (i + 1); 
+    //     for(int j = i + 1; j < s; j++){
+    //         if(arr[i] == arr[j]){
+    //             sum = sum - arr[i]; 
+    //             cout << arr[i] << endl; 
+    //         }
+    //     }
+    // }
+    // cout << realSum - sum ;
+    //~ TC = O(N^2), SC = O(1) 
+    
+    //! Better approach: 
+    // int sum = 0; 
+    // int realSum = s*(s+1)/2; 
+    // unordered_map<int,int> mp; 
+    // for(auto x: arr){ 
+    //     mp[x]++;
+    // }
+    // for(auto x: mp){
+    //     sum = sum + x.first; 
+    //     if(x.second > 1) {
+    //         cout << x.first << endl; 
+    //     }
+    // }
+    // cout << realSum - sum ;
+    //~ TC = O(2 * N) = O(N), SC = O(N)
+
+    //! Optimal approach: 
+    long long S = 0, S2 = 0;
+
+    for(int i = 0; i < s; i++){
+        S += arr[i];
+        S2 += 1LL * arr[i] * arr[i];
+    }
+
+    long long Sn = 1LL * s * (s+1) / 2;
+    long long S2n = 1LL * s * (s+1) * (2*s+1) / 6;
+
+    long long val1 = S - Sn;               // X - Y
+    long long val2 = (S2 - S2n) / val1;    // X + Y
+
+    long long X = (val1 + val2) / 2;       // Repeating
+    long long Y = X - val1;                // Missing
+
+    cout << "Repeating: " << X << endl;
+    cout << "Missing: " << Y << endl;
+    //~ TC = O(N), SC = O(1)
+
+}
+
+int merge(vector<int> &arr, int low, int mid, int high){
+    vector<int> temp;
+
+    int left = low;
+    int right = mid + 1;
+    int cnt = 0;
+
+    while(left <= mid && right <= high){
+        // if(arr[left] < arr[right]){
+        //     temp.push_back(arr[left]); 
+        //     left++;
+        // } else {
+        //     temp.push_back(arr[right]); 
+        //     cnt += (mid - left + 1); 
+        //     right++;
+        // }
+
+        //!
+        if(arr[left] > 2 * arr[right]){
+            temp.push_back(arr[right]); 
+            cnt++;
+            right++;
+        } else {
+            temp.push_back(arr[left]); 
+            left++;
+        }
+    }
+
+    while (left <= mid) {
+        temp.push_back(arr[left]);
+        left++;
+    }
+
+    while (right <= high) {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    for (int i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
+    }
+
+    return cnt;
+
+}
+
+int mergeSort(vector<int> &arr, int low, int high){
+    int cnt = 0; 
+
+    if(low >= high) return cnt ; 
+    
+    int mid = (low + high) / 2; 
+
+    cnt += mergeSort(arr, low, mid); 
+    cnt += mergeSort(arr, mid + 1, high); 
+    cnt += merge(arr, low, mid, high); 
+
+    return cnt;
+}
+
+void countInversion(vector<int> &arr, int s){
+    //! Brutte force approach: 
+    // int cnt = 0;
+    // for(int i = 0; i < s; i++){
+    //     for(int j = i + 1; j < s; j++){
+    //         if(arr[i] > arr[j]){
+    //             cnt++; 
+    //         }
+    //     }
+    // }
+    // cout << cnt << endl ; 
+    //~ TC = O(N^2), SC = O(1)
+
+    //! Optimal approach: 
+    int low = 0; 
+    int high = s - 1; 
+    
+    int res =  mergeSort(arr, low, high); 
+    cout << res ;
+
+}
+
+void countReverse(vector<int> &arr, int s){
+   //! Brutte force approach: 
+    // int cnt = 0;
+    // for(int i = 0; i < s; i++){
+    //     for(int j = i + 1; j < s; j++){
+    //         if(arr[i] > (2 * arr[j])){
+    //             cnt++; 
+    //         }
+    //     }
+    // }
+    // cout << cnt << endl; 
+    //~ TC = O(N^2), SC = O(1) 
+
+    //! Optimal approach: 
+    int low = 0; 
+    int high = s - 1; 
+    
+    int res =  mergeSort(arr, low, high); 
+    cout << res ;
+
+}
+
+void maximumSubarrayProduct (vector<int> &arr, int s) {
+    //! Brutte force approach: 
+    int maxp = 0; 
+    for(int i = 0; i < s; i++){
+        int prd = arr[i]; 
+        for(int j = i + 1; j < s; j++){
+            prd *= arr[j]; 
+            maxp = max(maxp, prd);
+        }
+    }
+    cout << maxp ;
+    //~ TC = O(N^2), SC = O(N)
+
+    //! Optimal approach: 
+    
 
 }
 
@@ -1802,15 +1978,29 @@ int main () {
     //! Merge two Sorted Arrays Without Extra Space : 
     vector <int> num4 = {0, 2, 7, 8, 0, 0, 0}; 
     vector <int> num5 = {-7, -3, -1};
-    mergeTwoSotedArrays(num4, num5); 
+    // mergeTwoSotedArrays(num4, num5); 
+
+    //! Find the repeating and missing numbers
+    vector<int> num6= {1, 2, 3, 6, 7, 5, 7};
+    int s6 = num6.size(); 
+    // repeantingAndMissingNumber(num6, s6);
+
+    //! Count inversions in an array
+    vector<int> num7 = {5,3,2,4,1}; 
+    int s7 = num7.size(); 
+    // countInversion(num7, s7); 
+
+    //! Count Reverse Pairs
+    vector <int> num8 = {40, 25, 19, 12, 9, 6, 2}; 
+    int s8 = num8.size(); 
+    // countReverse(num8, s8);
 
 
+    //! Maximum subarray product: 
+    vector<int> num9 = {1,2,3,4,5,0};
+    int s9 = num9.size();
+    maximumSubarrayProduct(num9, s9);
 
 
-
-
-
-
-    
     return 0;
 }
