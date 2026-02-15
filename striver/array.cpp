@@ -1669,24 +1669,15 @@ int merge(vector<int> &arr, int low, int mid, int high){
     int cnt = 0;
 
     while(left <= mid && right <= high){
-        // if(arr[left] < arr[right]){
-        //     temp.push_back(arr[left]); 
-        //     left++;
-        // } else {
-        //     temp.push_back(arr[right]); 
-        //     cnt += (mid - left + 1); 
-        //     right++;
-        // }
-
-        //!
-        if(arr[left] > 2 * arr[right]){
-            temp.push_back(arr[right]); 
-            cnt++;
-            right++;
-        } else {
+        if(arr[left] < arr[right]){
             temp.push_back(arr[left]); 
             left++;
+        } else {
+            temp.push_back(arr[right]); 
+            // cnt += (mid - left + 1); 
+            right++;
         }
+
     }
 
     while (left <= mid) {
@@ -1703,8 +1694,21 @@ int merge(vector<int> &arr, int low, int mid, int high){
         arr[i] = temp[i - low];
     }
 
-    return cnt;
+    // return cnt;
+    return 0; 
 
+}
+
+int countPairs(vector<int> &arr, int low, int mid, int high){
+    int right = mid + 1; 
+    int cnt = 0; 
+    for(int i = low; i <= mid; i++){
+        while(right <= high && arr[i] > 2 * arr[right]){
+            right++; 
+        }
+        cnt += (right - (mid + 1)); 
+    }
+    return cnt; 
 }
 
 int mergeSort(vector<int> &arr, int low, int high){
@@ -1716,7 +1720,9 @@ int mergeSort(vector<int> &arr, int low, int high){
 
     cnt += mergeSort(arr, low, mid); 
     cnt += mergeSort(arr, mid + 1, high); 
-    cnt += merge(arr, low, mid, high); 
+    cnt += countPairs(arr, low, mid, high); 
+    merge(arr, low, mid, high); 
+    // cnt += merge(arr, low, mid, high); 
 
     return cnt;
 }
@@ -1767,19 +1773,29 @@ void countReverse(vector<int> &arr, int s){
 
 void maximumSubarrayProduct (vector<int> &arr, int s) {
     //! Brutte force approach: 
-    int maxp = 0; 
-    for(int i = 0; i < s; i++){
-        int prd = arr[i]; 
-        for(int j = i + 1; j < s; j++){
-            prd *= arr[j]; 
-            maxp = max(maxp, prd);
-        }
-    }
-    cout << maxp ;
+    // int maxp = 0; 
+    // for(int i = 0; i < s; i++){
+    //     int prd = arr[i]; 
+    //     for(int j = i + 1; j < s; j++){
+    //         prd *= arr[j]; 
+    //         maxp = max(maxp, prd);
+    //     }
+    // }
+    // cout << maxp ;
     //~ TC = O(N^2), SC = O(N)
 
     //! Optimal approach: 
-    
+    int prefixProd = 1;
+    int suffixProd = 1;
+    int maxi = 0; 
+    for(int i = 0; i < s; i++){
+        if(prefixProd == 0) prefixProd = 1; 
+        if(suffixProd == 0) suffixProd = 1; 
+        prefixProd *= arr[i];
+        suffixProd *= arr[s-i-1]; 
+        maxi = max(maxi,max(prefixProd, suffixProd)); 
+    } 
+    cout << maxi ;
 
 }
 
@@ -1993,13 +2009,13 @@ int main () {
     //! Count Reverse Pairs
     vector <int> num8 = {40, 25, 19, 12, 9, 6, 2}; 
     int s8 = num8.size(); 
-    // countReverse(num8, s8);
+    countReverse(num8, s8);
 
 
     //! Maximum subarray product: 
-    vector<int> num9 = {1,2,3,4,5,0};
+    vector<int> num9 = {1,2,-3,0,-4,-5};
     int s9 = num9.size();
-    maximumSubarrayProduct(num9, s9);
+    // maximumSubarrayProduct(num9, s9);
 
 
     return 0;
