@@ -19,6 +19,74 @@ int binarySearch (vector<int> &arr, int s, int k) {
     return -1; 
 }
 
+int lastOccurence (vector<int> &arr, int s, int k) {
+    //! Brutte force approach: 
+    // int ans = -1; 
+    // for(int i = s - 1; i >= 0; i--){
+    //     if(arr[i] == k){
+    //         ans = i; 
+    //         break;
+    //     }
+    // }
+    // return ans;
+
+    //! Optimal approach: 
+    int start = 0; 
+    int end = s - 1; 
+    int ans = -1; 
+    while(start <= end){
+        int mid = (start + end) / 2; 
+        if(arr[mid] == k){
+            ans = mid; 
+            start = mid + 1; 
+        }
+        else if (arr[mid] > k){
+            end = mid - 1;
+        }
+        else {
+            start = mid + 1; 
+        }
+    }
+    return ans ;
+    
+}
+
+int firstOccurence (vector<int> &arr, int s, int k) {
+    int start = 0; 
+    int end = s - 1; 
+    int first = -1; 
+    while(start <= end){
+        int mid = (start + end) / 2; 
+        if(arr[mid] == k){
+            first = mid; 
+            end = mid - 1; 
+        }
+        else if (arr[mid] > k){
+            end = mid - 1;
+        }
+        else {
+            start = mid + 1; 
+        }
+    }
+    return first ;
+}
+
+int countOccurence (vector<int> &arr, int s, int k){
+    //! Brutte force approach: 
+    // int cnt = 0; 
+    // for(int i = 0; i < s; i++){
+    //     if(arr[i] == k){
+    //         cnt++; 
+    //     }
+    // }
+    // return cnt; 
+
+    //! Optimal approach: 
+    int a = firstOccurence(arr, s, k); 
+    int b = lastOccurence(arr, s, k); 
+    return (b - a) + 1 ;
+}
+
 int lowerBound (vector<int> &arr, int s, int k) {
     int low = 0; 
     int high = s - 1;
@@ -125,6 +193,16 @@ int main () {
     //! Floor and Ceil in Sorted Array
     // cout << findFloor(arr1, s1, 8) << endl;
     // cout << findCeil(arr1, s1, 8);
+
+    vector<int> arr2 = {3, 4, 13, 13, 13, 20, 40};
+    int s2 = arr2.size();
+
+    //! Last occurrence in a sorted array
+    // cout << lastOccurence(arr2, s2, 13); 
+
+    //! Count Occurrences in Sorted Array
+    // cout << countOccurence(arr2, s2, 13); 
+
 
     
 
