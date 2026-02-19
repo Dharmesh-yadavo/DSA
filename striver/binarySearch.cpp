@@ -239,6 +239,73 @@ bool searchInSortedArray2(vector<int> &arr, int s, int k){
     return 0; 
 }
 
+int minInRotatedSortedArray(vector<int> &arr, int s){
+    int low = 0;
+    int high = s - 1; 
+    int mini = INT16_MAX; 
+    while(low <= high){
+        int mid = (low + high) / 2;
+        if(arr[low] <= arr[mid]){
+            mini = min(mini, arr[low]);
+            low = mid + 1;
+        }
+        else {
+            mini = min(mini, arr[mid]);
+            high = mid - 1;
+        }
+    }
+    return mini;
+}
+
+int howManyTimesArrayIsRotated(vector<int> &arr, int s) {
+    int low = 0;
+    int high = s - 1; 
+    int mini = INT_MAX; 
+    int index = -1; 
+    
+    //! 1st approach: 
+    // while(low <= high){
+    //     // If entire array is already sorted
+    //     if(arr[low] <= arr[high]){
+    //         if(arr[low] < mini){
+    //             mini = arr[low];
+    //             index = low;
+    //         }
+    //         break;
+    //     }
+    //     int mid = (low + high) / 2;
+    //     // Left half sorted
+    //     if(arr[low] <= arr[mid]){
+    //         if(arr[low] < mini){
+    //             mini = arr[low];
+    //             index = low;
+    //         }
+    //         low = mid + 1;
+    //     }
+    //     // Right half sorted
+    //     else{
+    //         if(arr[mid] < mini){
+    //             mini = arr[mid];
+    //             index = mid;
+    //         }
+    //         high = mid - 1;
+    //     }
+    // }
+    // return index;
+
+    //! 2nd approach: 
+    while (low < high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] > arr[high])
+            low = mid + 1;
+        else
+            high = mid;
+    }
+
+    return low;
+}
+
 int main () {
     vector<int> arr1 = {3, 4, 4, 7, 8, 10};
     int s1 = arr1.size(); 
@@ -269,9 +336,18 @@ int main () {
     int s3 = arr3.size(); 
     // cout << searchInSortedArray1(arr3, s3, 0); 
 
+    //! Search in rotated sorted array-II
     vector<int> arr4 = {7, 8, 1, 2, 3, 3, 3, 4, 5, 6}; 
     int s4 = arr4.size(); 
-    cout << searchInSortedArray2(arr4, s4, 3); 
+    // cout << searchInSortedArray2(arr4, s4, 3); 
+
+    //! Minimum in Rotated Sorted Array
+    vector<int> arr5 = {4,5,6,7,0,1,2,3};
+    int s5 = arr5.size();
+    // cout << minInRotatedSortedArray(arr5, s5); 
+
+    //! Find out how many times the array has been rotated
+    cout << howManyTimesArrayIsRotated(arr5, s5); 
 
     
 
