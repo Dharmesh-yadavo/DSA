@@ -306,6 +306,54 @@ int howManyTimesArrayIsRotated(vector<int> &arr, int s) {
     return low;
 }
 
+int searchSingleElementInSortedArray(vector<int> &arr, int s){
+    if(s == 1) return arr[0]; 
+    
+    if(arr[0] != arr[1]) return arr[0];
+    if(arr[s - 1] != arr[s - 2]) return arr[s - 1]; 
+
+    int low = 1; 
+    int high = s - 2; 
+
+    while(low <= high){
+        int mid = (low + high) / 2; 
+        if(arr[mid] != arr[mid + 1] && arr[mid - 1] != arr[mid]){
+            return arr[mid]; 
+        }
+        else if ((mid % 2 == 0 && arr[mid] == arr[mid + 1]) || (mid % 2 == 1 && arr[mid] == arr[mid - 1]) ) {
+            low = mid + 1; 
+        }
+        else {
+            high = mid - 1; 
+        }
+    }
+    return -1; 
+}
+
+int peakElementInArray(vector<int> &nums, int s){
+    if(s == 1) return arr[0]; 
+
+    if(nums[0] > nums[1]) return nums[0]; 
+    if(nums[s-1] > nums[s-2]) return nums[s-1];
+
+    int low = 1; 
+    int high = s - 2; 
+    while(low <= high){
+        int mid = (low + high) / 2; 
+        if(nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
+            return nums[mid]; 
+        }    
+        else if (nums[mid - 1] < nums[mid]) {
+            low = mid + 1; 
+        }
+        else {
+            high = mid - 1; 
+        }
+    }
+    return 0; 
+}
+
+
 int main () {
     vector<int> arr1 = {3, 4, 4, 7, 8, 10};
     int s1 = arr1.size(); 
@@ -347,7 +395,17 @@ int main () {
     // cout << minInRotatedSortedArray(arr5, s5); 
 
     //! Find out how many times the array has been rotated
-    cout << howManyTimesArrayIsRotated(arr5, s5); 
+    // cout << howManyTimesArrayIsRotated(arr5, s5); 
+
+    //! Search Single Element in a sorted array
+    vector <int> arr6 = {1,1,3,5,5,6,6};
+    int s6 = arr6.size(); 
+    // cout << searchSingleElementInSortedArray(arr6, s6);
+
+    //! Peak element in Array
+    vector <int> arr7 = {1,2,1,3,5,6,4}; 
+    int s7 = arr7.size();
+    cout << peakElementInArray(arr7, s7); 
 
     
 
