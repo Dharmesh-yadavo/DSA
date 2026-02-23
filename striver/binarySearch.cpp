@@ -17,8 +17,7 @@ int binarySearch (vector<int> &arr, int s, int k) {
         }
     }
     return -1; 
-}
-
+} 
 int lastOccurence (vector<int> &arr, int s, int k) {
     //! Brutte force approach: 
     // int ans = -1; 
@@ -331,7 +330,7 @@ int searchSingleElementInSortedArray(vector<int> &arr, int s){
 }
 
 int peakElementInArray(vector<int> &nums, int s){
-    if(s == 1) return arr[0]; 
+    if(s == 1) return nums[0]; 
 
     if(nums[0] > nums[1]) return nums[0]; 
     if(nums[s-1] > nums[s-2]) return nums[s-1];
@@ -353,6 +352,49 @@ int peakElementInArray(vector<int> &nums, int s){
     return 0; 
 }
 
+int sqrt(int n) {
+    int low = 0; 
+    int high = n / 2; 
+    int ans = -1; 
+    while(low <= high){
+        long long mid = low + (high - low) / 2;
+        if(mid * mid == n){
+            return mid; 
+        }
+        else if(mid * mid < n){
+            low = mid + 1; 
+        }
+        else {
+            high = mid - 1; 
+        }
+    }
+    return ans; 
+}  
+
+
+int nThRoot(int n, int m) {
+    int low = 0; 
+    int high = n / 2; 
+    int ans = -1; 
+    while(low <= high){
+        long long mid = low + (high - low) / 2;
+        long long val = 1; 
+        for(int i = 1; i <= m; i++){
+            val *= mid;
+            if(val > n) break; 
+        }
+        if(val == n){
+            return ans = mid; 
+        }
+        else if(val < n){
+            low = mid + 1; 
+        }
+        else {
+            high = mid - 1; 
+        }
+    }
+    return ans; 
+}
 
 int main () {
     vector<int> arr1 = {3, 4, 4, 7, 8, 10};
@@ -405,7 +447,13 @@ int main () {
     //! Peak element in Array
     vector <int> arr7 = {1,2,1,3,5,6,4}; 
     int s7 = arr7.size();
-    cout << peakElementInArray(arr7, s7); 
+    // cout << peakElementInArray(arr7, s7); 
+
+    //! Find square root of a number
+    // cout << sqrt(16) << endl;
+
+    //! Nth Root of a Number using Binary Search
+    cout << nThRoot(625, 4) << endl;
 
     
 
