@@ -371,7 +371,6 @@ int sqrt(int n) {
     return ans; 
 }  
 
-
 int nThRoot(int n, int m) {
     int low = 0; 
     int high = n / 2; 
@@ -393,6 +392,93 @@ int nThRoot(int n, int m) {
             high = mid - 1; 
         }
     }
+    return ans; 
+}
+
+int calulateHours(vector<int> &arr, int s, int k){
+    int hours = 0; 
+    for(int i = 0; i < s; i++){
+        hours += (arr[i] + k - 1) / k; 
+    }
+    return hours; 
+}
+
+int kokoEatingBananas(vector<int> &arr, int s, int h){
+    //! brutte force approach:
+    // int maxVal = *max_element(arr.begin(), arr.end());
+    // for(int i = 1 ; i <= maxVal; i++){
+    //     int hours = calulateHours(arr, s, i);
+    //     if(hours <= h){
+    //         return i; 
+    //     }
+    // }
+    // return maxVal;
+
+    //! Optimal approach:
+    int maxVal = *max_element(arr.begin(), arr.end());
+    int low = 1;
+    int high = maxVal;
+    int ans = maxVal;
+    while(low <= high){
+        int mid = low + (high - low) / 2;
+        int hours = calulateHours(arr, s, mid);
+        if(hours <= h){
+            ans = mid; 
+            high = mid - 1; 
+        }
+        else {
+            low = mid + 1; 
+        }
+    }
+    return ans; 
+}
+
+int isPossible(vector<int> &arr, int s, int m, int k, int day){
+    int bouquets = 0; 
+    int flowers = 0; 
+    for(int i = 0; i < s; i++){
+        if(arr[i] <= day){
+            flowers++; 
+            if(flowers == k){
+                bouquets++; 
+                flowers = 0; 
+            }
+        }
+        else {
+            flowers = 0; 
+        }
+    }
+    return bouquets >= m; 
+}
+
+int minDaysForMBouquets(vector<int> &arr, int s, int m, int k){
+    long long totalFlowers = 1LL * m * k;
+    if (totalFlowers > arr.size()) return -1; // Not enough flowers
+
+    int low = *min_element(arr.begin(), arr.end());
+    int high = *max_element(arr.begin(), arr.end());
+
+    //! Brutte force approach:
+    // for(int day = low ;  low <= high; ++day){
+    //     if(isPossible(arr, s, m, k, day)){
+    //         return day; 
+    //     }
+    // }
+    // return -1;
+
+    //! Optimal approach:
+    int ans = -1;
+    while(low <= high){
+        int mid = low + (high - low) / 2;
+        if(isPossible(arr, s, m, k, mid)){
+            ans = mid; 
+            high = mid - 1; 
+        }
+        else {
+            low = mid + 1; 
+        }
+    }
+
     return ans; 
 }
 
@@ -453,7 +539,17 @@ int main () {
     // cout << sqrt(16) << endl;
 
     //! Nth Root of a Number using Binary Search
-    cout << nThRoot(625, 4) << endl;
+    // cout << nThRoot(625, 4) << endl;
+
+    //! Koko Eating Bananas
+    vector<int> arr8 = {7, 15, 6, 3};
+    int s8 = arr8.size();
+    cout << kokoEatingBananas(arr8, s8, 8) << endl;
+
+    //! Minimum days to make M bouquets
+    vector <int> arr9 = {7, 7, 7, 7, 13, 11, 12, 7};
+    int s9 = arr9.size();
+    cout << minDaysForMBouquets(arr9, s9, 2, 3) << endl;
 
     
 
