@@ -482,6 +482,27 @@ int minDaysForMBouquets(vector<int> &arr, int s, int m, int k){
     return ans; 
 }
 
+int findSmallestDivisor(vector<int> &arr, int s, int k){
+    int low = 1; 
+    int high = *max_element(arr.begin(), arr.end());
+    int ans = high;
+    while(low <= high){
+        int mid = low + (high - low) / 2;
+        long long sum = 0; 
+        for(int i = 0; i < s; i++){
+            sum += (arr[i] + mid - 1) / mid; 
+        }
+        if(sum <= k){
+            ans = mid; 
+            high = mid - 1; 
+        }
+        else {
+            low = mid + 1; 
+        }
+    }
+    return ans;
+}
+
 int main () {
     vector<int> arr1 = {3, 4, 4, 7, 8, 10};
     int s1 = arr1.size(); 
@@ -544,13 +565,17 @@ int main () {
     //! Koko Eating Bananas
     vector<int> arr8 = {7, 15, 6, 3};
     int s8 = arr8.size();
-    cout << kokoEatingBananas(arr8, s8, 8) << endl;
+    // cout << kokoEatingBananas(arr8, s8, 8) << endl;
 
     //! Minimum days to make M bouquets
     vector <int> arr9 = {7, 7, 7, 7, 13, 11, 12, 7};
     int s9 = arr9.size();
-    cout << minDaysForMBouquets(arr9, s9, 2, 3) << endl;
+    // cout << minDaysForMBouquets(arr9, s9, 2, 3) << endl;
 
+    //! Find the Smallest Divisor Given a Threshold
+    vector <int> arr10 = {8, 4, 2, 3};
+    int s10 = arr10.size();
+    cout << findSmallestDivisor(arr10, s10, 10) << endl;
     
 
 
