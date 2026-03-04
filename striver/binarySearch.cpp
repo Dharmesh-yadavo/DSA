@@ -503,6 +503,37 @@ int findSmallestDivisor(vector<int> &arr, int s, int k){
     return ans;
 }
 
+int daysNeeded(vector<int> &arr, int s, int w){
+    int sum = 0, days = 1;
+    for(int i = 0; i < s; i++){
+        sum += arr[i]; 
+        if(sum > w){
+            sum = arr[i];
+            days++;
+        } 
+    }
+    return days;
+}
+
+int shipWithinDays(vector<int> &arr, int s, int k){
+    int low = *max_element(arr.begin(), arr.end()); 
+    int high = accumulate(arr.begin(), arr.end(), 0);
+    int ans = high; 
+    while(low <= high){
+        int mid = low + (high - low) / 2;
+
+        int days = daysNeeded(arr, s, mid);
+        if(days <= k){
+            ans = mid;      
+            high = mid - 1; 
+        }
+        else {
+            low = mid + 1;  
+        }
+    }
+    return ans;
+}
+
 int main () {
     vector<int> arr1 = {3, 4, 4, 7, 8, 10};
     int s1 = arr1.size(); 
@@ -575,9 +606,12 @@ int main () {
     //! Find the Smallest Divisor Given a Threshold
     vector <int> arr10 = {8, 4, 2, 3};
     int s10 = arr10.size();
-    cout << findSmallestDivisor(arr10, s10, 10) << endl;
-    
+    // cout << findSmallestDivisor(arr10, s10, 10) << endl;
 
+    //! Capacity to Ship Packages within D Days
+    vector <int> arr11 = {5, 4, 5, 2, 3, 4, 5, 6};
+    int s11 = arr11.size();
+    cout << shipWithinDays(arr11, s11, 5);
 
 
     return 0; 
